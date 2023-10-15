@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Furama Facility</title>
+    <link rel="stylesheet" href="FacilityCss.css">
+</head>
+<body>
+<div id="modal">
+    <p id="confirmContent">are you sure about delete<br>
+    <span id="confirmContent-content"></span></p>
+    <div class="buttonCancel button" onclick="cancelConfirmTable()">Cancel</div>
+    <div class="buttonConfirm button">Confirm</div>
+</div>
+<div id="header">
+    <p>Furama Facility</p>
+</div>
+<div id="content"></div>
+</body>
+<script>
+    class model{
+        constructor(id, name, image, area) {
+            this.id = id;
+            this.name = name;
+            this.image = image;
+            this.area = area;
+        }
+    }
+    let data = [
+        new model(1, "OCEAN SUITE", "ModelImage/1.jpg", 85.8),
+        new model(2, "OCEAN STUDIO SUITE", "ModelImage/2.jpg", 40.1),
+        new model(3, "OCEAN DELUXE", "ModelImage/3.jpg", 43.7),
+        new model(4, "LAGOON SUPERIOR", "ModelImage/4.jpg", 40.1),
+        new model(5, "GARDEN SUPERIOR", "ModelImage/5.jpg", 40.1),
+        new model(6, "GARDEN DELUXE", "ModelImage/6.jpg", 43.7),
+        new model(7, "PRESIDENTIAL SUITE", "ModelImage/7.jpg", 130),
+        new model(8, "BEACH FRONT VILLAS", "ModelImage/8.jpg", 900),
+        new model(9, "POOL VILLAS", "ModelImage/9.jpg", 320),
+    ]
+    function setupModel(){
+        let dataModel = "";
+        for (let i = 0; i < data.length; i++){
+            let model = data[i];
+            dataModel +=
+                `<div class="modelMain">
+                <div class="modelImage" style="background-image: url('${model.image}')"></div>
+                <div class="modelInfo">
+                    <h2>${model.name}</h2>
+                    <h4>Room size: ${model.area} m<sup>2</sup></h4>
+                </div>
+                <div class="buttonEdit button">Edit</div>
+                <div class="buttonDelete button" onclick="showConfirmTable(${model.id}, '${model.name}')">Delete</div>
+            </div>`;
+        }
+        document.getElementById("content").innerHTML = dataModel;
+    }
+    function showConfirmTable(id, name){
+        document.getElementById("modal").style.display = "grid";
+        document.getElementById("confirmContent-content").innerHTML = name;
+    }
+    function cancelConfirmTable(){
+        document.getElementById("modal").style.display = "none";
+    }
+    setupModel();
+</script>
+</html>
