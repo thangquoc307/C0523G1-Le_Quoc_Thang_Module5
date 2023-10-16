@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task 1</title>
+</head>
+<body>
+
+</body>
+<script>
+    let intArray = (a, b) => {
+        let resultArr = [];
+        for (let i = a; i <= b; i++){
+            resultArr.push(i);
+    }
+        return resultArr;
+    };
+
+    let array = intArray(0,100);
+    console.log(array);
+
+    let primeArray = array.filter(function (ele) {
+        if (ele < 2) {return false;}
+        for (let i = 2; i <= Math.sqrt(ele); i++){
+            if (ele % i == 0){
+                return false;
+            }
+        }
+        return true;
+    });
+    console.log(primeArray);
+
+</script>
+</html>
