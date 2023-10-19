@@ -1,0 +1,49 @@
+#mainBody{
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.buildDiv{
+    width: 92%;
+    margin: 4%;
+    aspect-ratio: 5/4;
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+}
+.buildImg{
+    background-position: center;
+    background-size: cover;
+}
+.buildInfo{
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 1fr 100px 100px;
+}
+.button{
+    width: 90%;
+    height: 60%;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20%;
+}
+.buildInfo p, .buildInfo h4{
+    margin: 0;
+}
+.buildInfo h4{
+    margin-top: 20px;
+}
+.addBuild{
+    background-image: url("../header/image/add.png");
+    background-position: center;
+    background-size: 30%;
+    background-repeat: no-repeat;
+}
+.addText{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-weight: bolder;
+    font-size: 30px;
+}

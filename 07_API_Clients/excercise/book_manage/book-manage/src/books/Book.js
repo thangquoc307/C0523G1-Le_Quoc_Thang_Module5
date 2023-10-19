@@ -1,26 +1,30 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
 import axios from "axios";
+import { useNavigate} from 'react-router-dom';
 
 export default function BookManage(){
     const [bookList, setBookList] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const getData = async () => {
             try {
                 const reponse = await axios.get('https://my-json-server.typicode.com/codegym-vn/mock-api-books/books');
                 setBookList(reponse.data);
-                console.log(reponse);
             } catch (err) {
                 console.log(err);
             }
         };
+
         getData();
     }, []);
+    const locationHref = ((link) => {
+        navigate(link)
+    });
+
     return (
         <>
             <h3>Nhà sách 3 quyển sách</h3>
-            <button>Add a new book</button>
+            <button onClick={() => locationHref('/create')}>Add a new book</button>
             <table>
                 <thead>
                 <tr>
@@ -36,7 +40,8 @@ export default function BookManage(){
                             <td>{e.title}</td>
                             <td>{e.quantity}</td>
                             <td>
-                                <button>Edit</button>
+                                <button onClick={() => locationHref(`/detail/${e.id}`)}>Detail</button>
+                                <button onClick={() => locationHref(`/edit/${e.id}`)}>Edit</button>
                                 <button>Delete</button>
                             </td>
                         </tr>
