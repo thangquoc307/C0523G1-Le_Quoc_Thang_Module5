@@ -1,6 +1,7 @@
 {
   "villas" : [
     {
+      "id": 1,
       "serviceName": "Villa vong ám",
       "area": 100,
       "price": 5000000,
@@ -13,6 +14,7 @@
       "level": 2
     },
     {
+      "id": 2,
       "serviceName": "Villa hướng biển",
       "area": 100,
       "price": 4700000,
@@ -25,6 +27,7 @@
       "level": 2
     },
     {
+      "id": 3,
       "serviceName": "Villa hướng nội",
       "area": 100,
       "price": 4500000,
@@ -39,6 +42,7 @@
   ],
   "houses" : [
     {
+      "id": 4,
       "serviceName": "Nhà kho",
       "area": 50,
       "price": 2000000,
@@ -50,6 +54,7 @@
       "level": 2
     },
     {
+      "id": 5,
       "serviceName": "Nhà trắng",
       "area": 100,
       "price": 4000000,
@@ -61,6 +66,7 @@
       "level": 2
     },
     {
+      "id": 6,
       "serviceName": "Nhà chứa",
       "area": 80,
       "price": 3000000,
@@ -74,6 +80,7 @@
   ],
   "rooms" : [
     {
+      "id": 7,
       "serviceName": "Phòng Jisoo Blackpink",
       "area": 100,
       "price": 6000000,
@@ -83,6 +90,7 @@
       "freeService": "Đu idol hằng đêm"
     },
     {
+      "id": 8,
       "serviceName": "Phòng tra khảo",
       "area": 100,
       "price": 5500000,
@@ -92,6 +100,7 @@
       "freeService": "Ở hơi rén"
     },
     {
+      "id": 9,
       "serviceName": "Phòng bênh nhân Covid",
       "area": 100,
       "price": 4000000,
@@ -101,6 +110,7 @@
       "freeService": "Tặng bộ kit test đểu"
     },
     {
+      "id": 10,
       "serviceName": "Phòng tổng thống",
       "area": 200,
       "price": 6000000,

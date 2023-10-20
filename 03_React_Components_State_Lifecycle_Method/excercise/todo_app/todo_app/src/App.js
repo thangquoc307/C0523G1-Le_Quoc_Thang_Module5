@@ -1,38 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
-import { Component } from "react";
+import {useState} from "react";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: ['ăn', 'ngủ', 'nghỉ'],
-      item: ''
-    }
-  }
-  handleChange = (event) => {
-      this.setState({
-          item: event.target.value
-      })
+export default function App (){
+    const [list, setList] = useState(['ăn', 'ngủ', 'nghỉ']);
+    const [item, setItem] = useState('');
+
+  const handleChange = (event) => {
+      setItem(event.target.value);
   };
-  handleAddItem = () => {
-      if (this.state.item.trim() != ''){
-          this.setState({
-              list: [...this.state.list, this.state.item],
-              item: ''
+  const handleAddItem = () => {
+      if (item.trim() != ''){
+          setList(() => {
+              return [...list, item];
           })
+          setItem('');
       }
   };
-  render() {
     return (
         <div>
           <h2>Todo List</h2>
           <input
               type={"text"}
-              value={this.state.item}
-              onChange={this.handleChange}
+              value={item}
+              onChange={handleChange}
           />
-          <button onClick={this.handleAddItem}>Add</button>
+          <button onClick={handleAddItem}>Add</button>
           <table>
               <thead>
               <tr>
@@ -41,7 +34,7 @@ class App extends Component {
               </tr>
               </thead>
               <tbody>
-                  {this.state.list.map(function (e,index) {
+                  {list.map(function (e,index) {
                               return (
                                   <tr key={index}>
                                       <td>{index + 1}</td>
@@ -55,6 +48,4 @@ class App extends Component {
           </table>
         </div>
     )
-  }
 }
-export default App

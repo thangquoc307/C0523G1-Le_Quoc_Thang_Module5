@@ -15,7 +15,8 @@
     background-size: cover;
 }
 .buildInfo{
-    padding-left: 20px;
+    padding-left: 15px;
+    padding-right: 10px;
     display: grid;
     grid-template-columns: 1fr 100px 100px;
 }
@@ -27,6 +28,9 @@
     align-items: center;
     justify-content: center;
     margin-top: 20%;
+    margin-bottom: 20%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 .buildInfo p, .buildInfo h4{
     margin: 0;
@@ -37,7 +41,7 @@
 .addBuild{
     background-image: url("../header/image/add.png");
     background-position: center;
-    background-size: 30%;
+    background-size: 20%;
     background-repeat: no-repeat;
 }
 .addText{
@@ -46,4 +50,11 @@
     align-items: flex-start;
     font-weight: bolder;
     font-size: 30px;
+}
+.add{
+    transition-duration: 0.2s;
+}
+.add:hover{
+    background-color: rgba(0,0,0,0.1);
+    transition-duration: 0.2s;
 }

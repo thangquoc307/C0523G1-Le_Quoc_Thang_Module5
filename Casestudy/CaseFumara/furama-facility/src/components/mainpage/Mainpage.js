@@ -1,10 +1,20 @@
 import "./Mainpage.css";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import Modal from "../modal/Modal";
+import {useNavigate} from "react-router-dom";
 export default function Mainpage() {
     const [roomList, setRoomList] = useState([]);
     const [houseList, setHouseList] = useState([]);
     const [villaList, setVillaList] = useState([]);
+
+    const [modalContent, setModalContent] = useState("");
+    const [modalType, setModalType] = useState("confirm");
+    const [buildId, setBuildId] = useState(-1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         const getData = async () => {
             try {
@@ -21,8 +31,27 @@ export default function Mainpage() {
         };
         getData();
     },[]);
+
+    const modalConfirm = (id, type, content) => {
+        setBuildId(id);
+        setModalType(type);
+        setModalContent("Are you sure about " + content + " buiding " + id);
+        setIsModalOpen(true);
+    }
+    const locationHref = (link) => {
+        navigate(link);
+    }
+
     return (
+        <>
+        {
+            isModalOpen && <Modal
+                setIsModalOpen={setIsModalOpen}
+                modalContent={modalContent}
+                modalType={modalType}/>
+        }
         <div id="mainBody" className="color2">
+
             {
                 [...roomList,...houseList,...villaList].map((e,index) => {
                     return (
@@ -32,21 +61,20 @@ export default function Mainpage() {
                                 <div>
                                     <h4>{e.serviceName}</h4>
                                     <p>Area: {e.area}m<sup>2</sup></p>
-
                                 </div>
                                 <div className="button hover color3">Edit</div>
-                                <div className="button hover color4">Delete</div>
+                                <div className="button hover color4"
+                                     onClick={() => modalConfirm(e.id, "confirm", "DELETE")}>Delete</div>
                             </div>
                         </div>
                     )
                 })
             }
-            <div className="buildDiv color1">
+            <div className="add buildDiv color1" onClick={() => locationHref("/create")}>
                 <div className="addBuild"></div>
                 <div className="addText">Add new Building</div>
             </div>
         </div>
+        </>
     )
-
-
 }

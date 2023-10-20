@@ -1,0 +1,30 @@
+.modal{
+    width: 26%;
+    aspect-ratio: 5/3;
+    margin-left: 37%;
+    margin-top: 0;
+    padding: 2%;
+    position: fixed;
+    display: grid;
+    grid-template-rows: 1fr 80px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "content content" "button1 button2";
+    background-color: rgba(0,0,0,0.8);
+}
+.modalContent{
+    grid-area: content;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+.buttonModalClose{
+    grid-area: button1;
+}
+.buttonModalConfirm{
+    grid-area: button2;
+
+}
+.buttonModalOk{
+    grid-area: button2;
+
+}

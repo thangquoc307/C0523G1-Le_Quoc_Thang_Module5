@@ -1,0 +1,40 @@
+.formCreate{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    grid-template-rows: 100px 1fr;
+}
+.titleCreate{
+    display: grid;
+    grid-template-columns: repeat(3, 150px) 1fr;
+}
+.titleCreate div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.formInput{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding: 40px 20px;
+}
+.inputDiv{
+    margin-bottom: 20px;
+
+}
+.inputDiv small{
+    color: red;
+}
+.inputDiv input, .inputDiv select{
+    margin-top: 10px;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.inputDiv label{
+    margin-left: 15%;
+}
+.inputDiv small{
+    margin-left: 15%;
+}
