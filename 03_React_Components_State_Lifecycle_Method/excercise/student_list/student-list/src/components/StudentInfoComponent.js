@@ -1,6 +1,6 @@
 export default function StudentInfo({id, name, age, address}) {
     return (
-        <tr>
+        <tr key={id}>
             <td>{id}</td>
             <td>{name}</td>
             <td>{age}</td>
