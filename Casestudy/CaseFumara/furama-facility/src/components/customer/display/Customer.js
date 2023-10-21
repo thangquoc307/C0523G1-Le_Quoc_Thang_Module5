@@ -1,14 +1,16 @@
 import "./Customer.css"
 import {useEffect, useState} from "react";
-import {customerApi} from "../../service/api_connection";
-import Modal from "../modal/Modal";
-import {standardDay, standardPhone} from "../../service/standard_data";
+import {customerApi} from "../../../service/api_connection";
+import Modal from "../../modal/Modal";
+import {standardDay, standardPhone} from "../../../service/standard_data";
+import {useNavigate} from "react-router-dom";
 export default function Customer() {
     const [customerList, setCustomerList] = useState([]);
     const [modalContent, setModalContent] = useState("");
     const [modalType, setModalType] = useState("confirm");
     const [customerId, setCustomerId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -19,13 +21,15 @@ export default function Customer() {
             }
         }
         fetchData();
-        console.log(customerList)
     },[]);
     const modalConfirm = (id, type, content) => {
         setCustomerId(id);
         setModalType(type);
         setModalContent(content + " " + id);
         setIsModalOpen(true);
+    }
+    const locationHref = (link) => {
+        navigate(link);
     }
 
     return (
@@ -37,7 +41,8 @@ export default function Customer() {
                     modalType={modalType}/>
             }
             <div>
-                <div className="createNew color3 hover filler">+ Customer</div>
+                <div className="createNew color3 hover filler"
+                    onClick={() => locationHref("/customer/create")}>+ Customer</div>
                 <table id="customerTable" className="color1 filler">
                     <thead>
                     <tr>

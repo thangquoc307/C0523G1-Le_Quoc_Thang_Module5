@@ -1,14 +1,16 @@
 import "./Employee.css"
 import {useEffect, useState} from "react";
-import {employeeApi} from "../../service/api_connection";
-import Modal from "../modal/Modal";
-import {standardDay, standardPhone} from "../../service/standard_data";
+import {employeeApi} from "../../../service/api_connection";
+import Modal from "../../modal/Modal";
+import {standardDay, standardPhone} from "../../../service/standard_data";
+import {useNavigate} from "react-router-dom";
 export default function Employee() {
     const [employeeList, setEmployeeList] = useState([]);
     const [modalContent, setModalContent] = useState("");
     const [modalType, setModalType] = useState("confirm");
     const [employeeId, setEmployeeId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,6 +30,9 @@ export default function Employee() {
         setModalContent(content + " " + id);
         setIsModalOpen(true);
     }
+    const locationHref = (link) => {
+        navigate(link);
+    }
     return (
         <>
             {
@@ -37,7 +42,8 @@ export default function Employee() {
                     modalType={modalType}/>
             }
             <div>
-                <div className="createNew color3 hover filler">+ Employee</div>
+                <div className="createNew color3 hover filler"
+                    onClick={() => {locationHref("/employee/create")}}>+ Employee</div>
                 <table id="employeeTable" className="color1 filler">
                     <thead>
                     <tr>

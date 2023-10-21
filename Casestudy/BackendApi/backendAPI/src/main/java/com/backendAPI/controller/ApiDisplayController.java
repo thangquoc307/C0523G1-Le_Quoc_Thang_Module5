@@ -26,7 +26,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/")
-public class ApiController {
+public class ApiDisplayController {
     @Autowired
     private IBuildService buildService;
     @Autowired

@@ -1,0 +1,36 @@
+.formCustomerCreate{
+    width: 80%;
+    padding: 60px 40px 40px;
+    margin: 2% 10%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.inputCreateCustomer{
+    height: 100px;
+
+}
+.inputCreateCustomer label{
+    margin-left: 20%;
+}
+.inputCreateCustomer small{
+    color: red;
+    margin-left: 20%;
+}
+.inputCreateCustomer input, .inputCreateCustomer select{
+    width: 60%;
+    margin: 10px 20%;
+}
+.buttonFormCreate{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr;
+}
+.buttonFormCreate button{
+    width: 90%;
+    height: 50px;
+    margin: 2% 5%;
+    border: none;
+    font-size: 16px;
+}
+.titleCreateForm{
+    text-align: center;
+}
