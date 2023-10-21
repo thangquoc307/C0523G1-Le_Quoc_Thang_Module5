@@ -7,17 +7,18 @@ export default function Modal({setIsModalOpen,modalContent,modalType}){
      switch (modalType){
          case "confirm":
              return (
-                 <div className="modal">
-                     <p className="modalContent">{modalContent}</p>
-                     <div onClick={closeModal} className="button hover buttonModalClose color2">Close</div>
-                     <div className="button hover buttonModalConfirm color3">Confirm</div>
+                 <div className="modal filler boxshadow-outset border">
+                     <p className="modalContent">Are you sure about<br/><br/>
+                         <span className="targetText">{modalContent}</span></p>
+                     <div onClick={closeModal} className="button hover buttonModalClose color3">Close</div>
+                     <div className="button hover buttonModalConfirm color4">Confirm</div>
                 </div>
              );
          case "alert":
              return (
-                 <div className="modal">
+                 <div className="modal filler boxshadow-outset border">
                      <p className="modalContent">{modalContent}</p>
-                     <div onClick={closeModal} className="buttonModalOk color2">Ok</div>
+                     <div onClick={closeModal} className="buttonModalOk color3">Ok</div>
                  </div>
              );
      }

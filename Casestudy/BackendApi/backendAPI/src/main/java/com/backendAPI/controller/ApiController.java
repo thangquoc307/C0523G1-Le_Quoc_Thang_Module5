@@ -1,8 +1,16 @@
 package com.backendAPI.controller;
 
 import com.backendAPI.model.build.Building;
+import com.backendAPI.model.build.RentType;
+import com.backendAPI.model.build.RoomType;
+import com.backendAPI.model.contract.Service;
 import com.backendAPI.model.customer.Customer;
+import com.backendAPI.model.customer.CustomerType;
+import com.backendAPI.model.customer.Gender;
+import com.backendAPI.model.employee.Department;
+import com.backendAPI.model.employee.Education;
 import com.backendAPI.model.employee.Employee;
+import com.backendAPI.model.employee.Position;
 import com.backendAPI.service.IBuildService;
 import com.backendAPI.service.ICustomerService;
 import com.backendAPI.service.IEmployeeService;
@@ -34,6 +42,33 @@ public class ApiController {
             return new ResponseEntity<>(buildingList, HttpStatus.OK);
         }
     }
+    @GetMapping("renttype")
+    public ResponseEntity<List<RentType>> getRentType(){
+        List<RentType> rentTypeList = buildService.getAllRentType();
+        if (rentTypeList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(rentTypeList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("roomtype")
+    public ResponseEntity<List<RoomType>> getRoomType(){
+        List<RoomType> roomTypeList = buildService.getAllRoomType();
+        if (roomTypeList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(roomTypeList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("service")
+    public ResponseEntity<List<Service>> getService(){
+        List<Service> serviceList = buildService.getAllService();
+        if (serviceList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(serviceList, HttpStatus.OK);
+        }
+    }
     @GetMapping("customer")
     public ResponseEntity<List<Customer>> getCustomerList(){
         List<Customer> customerList = customerService.getAllCustomer();
@@ -41,6 +76,42 @@ public class ApiController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(customerList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("customertype")
+    public ResponseEntity<List<CustomerType>> getCustomerType(){
+        List<CustomerType> customerTypeList = customerService.getAllCustomerType();
+        if (customerTypeList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customerTypeList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("gender")
+    public ResponseEntity<List<Gender>> getGender(){
+        List<Gender> genderList = customerService.getAllGender();
+        if (genderList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(genderList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("department")
+    public ResponseEntity<List<Department>> getDepartment(){
+        List<Department> departmentList = employeeService.getAllDepartment();
+        if (departmentList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(departmentList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("education")
+    public ResponseEntity<List<Education>> getEducation(){
+        List<Education> educationList = employeeService.getAllEducation();
+        if (educationList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(educationList, HttpStatus.OK);
         }
     }
     @GetMapping("employee")
@@ -52,5 +123,13 @@ public class ApiController {
             return new ResponseEntity<>(employeeList, HttpStatus.OK);
         }
     }
-
+    @GetMapping("position")
+    public ResponseEntity<List<Position>> getPosition(){
+        List<Position> positionList = employeeService.getAllPosition();
+        if (positionList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(positionList, HttpStatus.OK);
+        }
+    }
 }

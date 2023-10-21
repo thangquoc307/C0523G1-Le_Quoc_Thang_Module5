@@ -61,7 +61,7 @@ values
 	("BEACH FRONT VILLAS",400,6000000,8,3,
     "https://acihome.com.vn/uploads/15/thiet-ke-biet-thu-nghi-duong-2-tang-hien-dai-dt-650m2-co-ho-boi-4.jpg",
     5, 30, 3),
-	("POOL VILLAS",300,5000000,10,3,
+	("KING VILLAS",300,5000000,10,3,
     "https://quantrinhahang.edu.vn/wp-content/uploads/2019/04/villa-thiet-ke-hien-dai-voi-khong-gian-tach-biet.jpg",
     4, 35, 2);
 insert into `buildings` 

@@ -1,0 +1,86 @@
+import "./Customer.css"
+import {useEffect, useState} from "react";
+import {customerApi} from "../../service/api_connection";
+import Modal from "../modal/Modal";
+import {standardDay, standardPhone} from "../../service/standard_data";
+export default function Customer() {
+    const [customerList, setCustomerList] = useState([]);
+    const [modalContent, setModalContent] = useState("");
+    const [modalType, setModalType] = useState("confirm");
+    const [customerId, setCustomerId] = useState(-1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await customerApi();
+                setCustomerList(data.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchData();
+        console.log(customerList)
+    },[]);
+    const modalConfirm = (id, type, content) => {
+        setCustomerId(id);
+        setModalType(type);
+        setModalContent(content + " " + id);
+        setIsModalOpen(true);
+    }
+
+    return (
+        <>
+            {
+                isModalOpen && <Modal
+                    setIsModalOpen={setIsModalOpen}
+                    modalContent={modalContent}
+                    modalType={modalType}/>
+            }
+            <div>
+                <div className="createNew color3 hover filler">+ Customer</div>
+                <table id="customerTable" className="color1 filler">
+                    <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Id Card</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Gender</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        customerList.map((e,index) => {
+                            return(
+                                <tr key={e.id}>
+                                    <td>{index}</td>
+                                    <td>{e.name}</td>
+                                    <td>{standardDay(e.birthday)}</td>
+                                    <td>{e.idCard}</td>
+                                    <td>{standardPhone(e.phone)}</td>
+                                    <td>{e.email}</td>
+                                    <td>{e.address}</td>
+                                    <td>{e.gender.genderName}</td>
+                                    <td>{e.customerType.typeName}</td>
+                                    <td>
+                                        <div className="buttonEmployee color3 hover filler">edit</div>
+                                        <div className="buttonEmployee color4 hover filler"
+                                             onClick={() => modalConfirm(e.name, "confirm", "Delete")}
+                                        >delete</div>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </>
+    )
+
+}

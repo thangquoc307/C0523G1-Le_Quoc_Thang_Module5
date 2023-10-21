@@ -1,0 +1,89 @@
+import axios from "axios";
+export const buildingApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/building/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const rentTypeApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/renttype/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const roomTypeApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/roomtype/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const serviceApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/service/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const customerApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/customer/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const customerTypeApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/customertype/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const genderApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/gender/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const departmentApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/department/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const educationApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/education/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const employeeApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/employee/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const positionApi = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/position/");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}

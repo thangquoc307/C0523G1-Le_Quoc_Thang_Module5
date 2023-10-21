@@ -15,7 +15,7 @@
     background-size: cover;
 }
 .buildInfo{
-    padding-left: 15px;
+    padding-left: 25px;
     padding-right: 10px;
     display: grid;
     grid-template-columns: 1fr 100px 100px;

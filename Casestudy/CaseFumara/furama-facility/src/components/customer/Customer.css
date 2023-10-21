@@ -1,0 +1,51 @@
+#customerTable{
+    width: 86%;
+    margin: 0 7%;
+    padding: 20px;
+}
+#customerTable tbody tr:nth-child(odd){
+    background-color: #EAE9E5;
+}
+#customerTable thead th{
+    padding-bottom: 20px;
+}
+#customerTable tbody td:nth-child(1){
+    width: 5%;
+    text-align: center;
+}
+#customerTable tbody td:nth-child(2){
+    width: 12%;
+}
+#customerTable tbody td:nth-child(3){
+    width: 8%;
+    text-align: center;
+}
+#customerTable tbody td:nth-child(4){
+    width: 8%;
+    text-align: center;
+}
+#customerTable tbody td:nth-child(5){
+    width: 8%;
+    text-align: center;
+}
+#customerTable tbody td:nth-child(6){
+    width: 14%;
+}
+#customerTable tbody td:nth-child(7){
+    width: 14%;
+}
+#customerTable tbody td:nth-child(8){
+    width: 8%;
+}
+#customerTable tbody td:nth-child(9){
+    width: 8%;
+}
+#customerTable tbody td:nth-child(10){
+    width: 15%;
+}
+#customerTable tr{
+    height: 75px;
+}
+#customerTable td{
+    padding: 0 10px;
+}
