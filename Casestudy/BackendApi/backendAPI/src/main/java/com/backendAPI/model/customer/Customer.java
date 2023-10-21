@@ -1,14 +1,18 @@
 package com.backendAPI.model.customer;
 
+import com.backendAPI.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private LocalDate birthday;
     private String idCard;
@@ -21,15 +25,18 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "customerTypeId", referencedColumnName = "id")
     private CustomerType customerType;
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer")
+    private List<Contract> contracts;
 
     public Customer() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,5 +102,13 @@ public class Customer {
 
     public void setCustomerType(CustomerType customerType) {
         this.customerType = customerType;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

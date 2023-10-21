@@ -1,23 +1,29 @@
 package com.backendAPI.model.build;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "room_types")
 public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String typeName;
+    @JsonBackReference
+    @OneToMany(mappedBy = "roomType")
+    private List<Building> buildings;
 
     public RoomType() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -27,5 +33,13 @@ public class RoomType {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public List<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
     }
 }

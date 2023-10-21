@@ -1,20 +1,24 @@
 package com.backendAPI.model.employee;
 
+import com.backendAPI.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
     private LocalDate birthday;
     private String idCard;
     private String phone;
     private String email;
-    private int salary;
+    private Integer salary;
     @ManyToOne
     @JoinColumn(name = "educationId", referencedColumnName = "id")
     private Education education;
@@ -24,15 +28,18 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "departmentId", referencedColumnName = "id")
     private Department department;
+    @JsonBackReference
+    @OneToMany(mappedBy = "employee")
+    private List<Contract> contracts;
 
     public Employee() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,11 +83,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
@@ -106,5 +113,13 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

@@ -1,69 +1,74 @@
 package com.backendAPI.model.build;
 
+import com.backendAPI.model.contract.Contract;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "buidings")
+@Table(name = "buildings")
 public class Building {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String serviceName;
-    private double area;
-    private int price;
-    private int capacity;
+    private Integer id;
+    private String name;
+    private Double area;
+    private Integer price;
+    private Integer capacity;
     private String img;
-    private int level;
-    private String otherService;
-    private String freeService;
-    private double poolArea;
+    private Integer level;
+    private Double poolArea;
     @ManyToOne
     @JoinColumn(name = "rentTypeId", referencedColumnName = "id")
     private RentType rentType;
     @ManyToOne
     @JoinColumn(name = "roomTypeId", referencedColumnName = "id")
     private RoomType roomType;
+    @JsonBackReference
+    @OneToMany(mappedBy = "building")
+    private List<Contract> contracts;
 
     public Building() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public String getName() {
+        return name;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public double getArea() {
+    public Double getArea() {
         return area;
     }
 
-    public void setArea(double area) {
+    public void setArea(Double area) {
         this.area = area;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 
@@ -75,35 +80,19 @@ public class Building {
         this.img = img;
     }
 
-    public int getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public String getOtherService() {
-        return otherService;
-    }
-
-    public void setOtherService(String otherService) {
-        this.otherService = otherService;
-    }
-
-    public String getFreeService() {
-        return freeService;
-    }
-
-    public void setFreeService(String freeService) {
-        this.freeService = freeService;
-    }
-
-    public double getPoolArea() {
+    public Double getPoolArea() {
         return poolArea;
     }
 
-    public void setPoolArea(double poolArea) {
+    public void setPoolArea(Double poolArea) {
         this.poolArea = poolArea;
     }
 
@@ -121,5 +110,13 @@ public class Building {
 
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
+    }
+
+    public List<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(List<Contract> contracts) {
+        this.contracts = contracts;
     }
 }
