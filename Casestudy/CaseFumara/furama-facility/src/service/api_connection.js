@@ -87,3 +87,27 @@ export const positionApi = async () => {
         console.log(err);
     }
 }
+export const employeeByIdApi = async (elementId) => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/employee/" + elementId);
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const customerByIdApi = async (elementId) => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/customer/" + elementId);
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const buildingByIdApi = async (elementId) => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/building/" + elementId);
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}

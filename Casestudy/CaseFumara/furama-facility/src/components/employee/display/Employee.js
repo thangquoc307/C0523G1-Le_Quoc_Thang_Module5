@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 export default function Employee() {
     const [employeeList, setEmployeeList] = useState([]);
     const [modalContent, setModalContent] = useState("");
-    const [modalType, setModalType] = useState("confirm");
+    const [modalType, setModalType] = useState("");
     const [employeeId, setEmployeeId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
@@ -23,11 +23,11 @@ export default function Employee() {
         }
         fetchData();
         console.log(employeeList)
-    },[]);
-    const modalConfirm = (id, type, content) => {
+    },[isModalOpen]);
+    const modalConfirm = (name, content,id) => {
         setEmployeeId(id);
-        setModalType(type);
-        setModalContent(content + " " + id);
+        setModalType("employee");
+        setModalContent(name);
         setIsModalOpen(true);
     }
     const locationHref = (link) => {
@@ -39,7 +39,8 @@ export default function Employee() {
                 isModalOpen && <Modal
                     setIsModalOpen={setIsModalOpen}
                     modalContent={modalContent}
-                    modalType={modalType}/>
+                    modalType={modalType}
+                    objectId={employeeId}/>
             }
             <div>
                 <div className="createNew color3 hover filler"
@@ -64,7 +65,7 @@ export default function Employee() {
                         employeeList.map((e,index) => {
                             return(
                                 <tr key={e.id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{e.name}</td>
                                     <td>{standardDay(e.birthday)}</td>
                                     <td>{e.idCard}</td>
@@ -76,7 +77,7 @@ export default function Employee() {
                                     <td>
                                         <div className="buttonEmployee color3 hover filler">edit</div>
                                         <div className="buttonEmployee color4 hover filler"
-                                             onClick={() => modalConfirm(e.name, "confirm", "Delete")}
+                                             onClick={() => modalConfirm(e.name, "confirm", e.id)}
                                         >delete</div>
                                     </td>
                                 </tr>

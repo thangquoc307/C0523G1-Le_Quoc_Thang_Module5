@@ -17,10 +17,8 @@ import com.backendAPI.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @CrossOrigin("*")
@@ -130,6 +128,33 @@ public class ApiDisplayController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(positionList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("customer/{id}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable int id){
+        Customer customer = customerService.getCustomerById(id);
+        if (customer == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        }
+    }
+    @GetMapping("employee/{id}")
+    public ResponseEntity<Employee> getEmployee(@PathVariable int id){
+        Employee employee = employeeService.getEmployeeById(id);
+        if (employee == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(employee, HttpStatus.OK);
+        }
+    }
+    @GetMapping("building/{id}")
+    public ResponseEntity<Building> getBuilding(@PathVariable int id){
+        Building building = buildService.getBuildingById(id);
+        if (building == null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(building, HttpStatus.OK);
         }
     }
 }

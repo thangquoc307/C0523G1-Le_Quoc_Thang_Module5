@@ -1,17 +1,12 @@
-import {useState} from "react";
-function Counter(props) {
-    const name = props.name;
-    let [count, setCount] = useState(0);
-    const handleClick = () => {
-        const newValue = count + 1;
-        setCount(newValue);
-    };
+import {useIncrement} from "./useIncrement";
+export default function Counter({name, init}) {
+    let [count, changeCount] = useIncrement(init);
+
     return (
         <div>
             {name} : {count}
             <br/>
-            <button onClick={handleClick}>Add {name}</button>
+            <button onClick={changeCount}>Add {name}</button>
         </div>
     )
 }
-export default Counter;

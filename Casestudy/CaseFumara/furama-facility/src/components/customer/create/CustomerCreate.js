@@ -42,9 +42,6 @@ export default function CustomerCreate(){
                 console.log(err);
             }
         }
-        dataGender();
-    }, []);
-    useEffect(() => {
         const dataType = async () => {
             try {
                 const data = await customerTypeApi();
@@ -53,11 +50,9 @@ export default function CustomerCreate(){
                 console.log(err);
             }
         }
+        dataGender();
         dataType();
     }, []);
-    const locationHref = (link) => {
-        navigate(link);
-    }
 
     const handleSubmit = async (values) => {
         const newCustomer = {
@@ -81,77 +76,98 @@ export default function CustomerCreate(){
             console.log(err);
         }
     }
-    return(
-        <div>
-            <h1 className="titleCreateForm">Create New Customer</h1>
-            <Formik
-                initialValues={{name: ''}}
-                onSubmit={handleSubmit}
-                validationSchema={validation}>
-                <Form className="formCustomerCreate color1 filler">
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="name">Customer Name</label><br/>
-                        <Field type="text" id="name" name="name" /><br/>
-                        <ErrorMessage name="name" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="birthday">Customer Birthday</label><br/>
-                        <Field type="date" id="birthday" name="birthday" /><br/>
-                        <ErrorMessage name="birthday" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="idCard">Citizen Identification</label><br/>
-                        <Field type="text" id="idCard" name="idCard" /><br/>
-                        <ErrorMessage name="idCard" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="phone">Telephone Number</label><br/>
-                        <Field type="text" id="phone" name="phone" /><br/>
-                        <ErrorMessage name="phone" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="email">Email Address</label><br/>
-                        <Field type="text" id="email" name="email" /><br/>
-                        <ErrorMessage name="email" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="address">Customer Address</label><br/>
-                        <Field type="text" id="address" name="address" /><br/>
-                        <ErrorMessage name="address" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="gender">Customer Gender</label><br/>
-                        <Field as="select" id="gender" name="gender">
-                            {genderList.map((e) => {
-                                return <option value={e.id} label={e.genderName}></option>
-                            })}
-                        </Field>
-                        <br/>
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="customerType">Customer Type</label><br/>
-                        <Field as="select" id="customerType" name="customerType">
-                            {customerType.map((e) => {
-                                return <option value={e.id} label={e.typeName}></option>
-                            })}
-                        </Field>
-                        <br/>
-                    </div>
+    const initialValue = {
+        name: "",
+        birthday: "",
+        idCard: "",
+        phone: "",
+        email: "",
+        address: "",
+        gender: 0,
+        customerType: 0,
+    }
 
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div className="buttonFormCreate">
+    if (genderList.length == 0 || customerType.length == 0) {
+        return null;
+    } else {
+        return (
+            <div>
+                <h1 className="titleCreateForm">Create New Customer</h1>
+                <Formik
+                    initialValues={initialValue}
+                    onSubmit={handleSubmit}
+                    validationSchema={validation}>
+                    <Form className="formCustomerCreate color1 filler">
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="name">Customer Name</label><br/>
+                            <Field type="text" name="name"/><br/>
+                            <ErrorMessage name="name" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="birthday">Customer Birthday</label><br/>
+                            <Field type="date" name="birthday"/><br/>
+                            <ErrorMessage name="birthday" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="idCard">Citizen Identification</label><br/>
+                            <Field type="text" name="idCard"/><br/>
+                            <ErrorMessage name="idCard" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="phone">Telephone Number</label><br/>
+                            <Field type="text" name="phone"/><br/>
+                            <ErrorMessage name="phone" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="email">Email Address</label><br/>
+                            <Field type="text" name="email"/><br/>
+                            <ErrorMessage name="email" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="address">Customer Address</label><br/>
+                            <Field type="text" name="address"/><br/>
+                            <ErrorMessage name="address" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="gender">Customer Gender</label><br/>
+                            <Field as="select" name="gender">
+                                <option value="" label="--select--" selected={true}></option>
+                                {genderList.map((e) => {
+                                    return <option value={e.id} label={e.genderName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="gender" component="small"/>
+                            <br/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="customerType">Customer Type</label><br/>
+                            <Field as="select" name="customerType">
+                                <option value="" label="--select--" selected={true}></option>
+                                {customerType.map((e) => {
+                                    return <option value={e.id} label={e.typeName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="customerType" component="small"/>
+                            <br/>
+                        </div>
+
                         <div></div>
-                        <button className="filler hover color3" type="button"
-                            onClick={() => {locationHref("/customer")}}>Back</button>
-                        <button className="filler hover color4" type="submit">Submit</button>
-                    </div>
+                        <div></div>
+                        <div></div>
+                        <div className="buttonFormCreate">
+                            <div></div>
+                            <button className="filler hover color3" type="button"
+                                    onClick={() => {
+                                        navigate("/customer")
+                                    }}>Back
+                            </button>
+                            <button className="filler hover color4" type="submit">Submit</button>
+                        </div>
 
-                </Form>
-            </Formik>
+                    </Form>
+                </Formik>
 
-        </div>
-    )
-
+            </div>
+        )
+    }
 }

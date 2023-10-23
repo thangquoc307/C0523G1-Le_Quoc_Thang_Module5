@@ -7,10 +7,11 @@ import {useNavigate} from "react-router-dom";
 export default function Customer() {
     const [customerList, setCustomerList] = useState([]);
     const [modalContent, setModalContent] = useState("");
-    const [modalType, setModalType] = useState("confirm");
+    const [modalType, setModalType] = useState("");
     const [customerId, setCustomerId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -21,15 +22,18 @@ export default function Customer() {
             }
         }
         fetchData();
-    },[]);
-    const modalConfirm = (id, type, content) => {
+    },[isModalOpen]);
+    const modalConfirm = (name, content, id) => {
         setCustomerId(id);
-        setModalType(type);
-        setModalContent(content + " " + id);
+        setModalType("customer");
+        setModalContent(name);
         setIsModalOpen(true);
     }
     const locationHref = (link) => {
         navigate(link);
+    }
+    const handleEdit = (id) => {
+        navigate("/customer/edit/"+id);
     }
 
     return (
@@ -38,7 +42,8 @@ export default function Customer() {
                 isModalOpen && <Modal
                     setIsModalOpen={setIsModalOpen}
                     modalContent={modalContent}
-                    modalType={modalType}/>
+                    modalType={modalType}
+                    objectId={customerId}/>
             }
             <div>
                 <div className="createNew color3 hover filler"
@@ -63,7 +68,7 @@ export default function Customer() {
                         customerList.map((e,index) => {
                             return(
                                 <tr key={e.id}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{e.name}</td>
                                     <td>{standardDay(e.birthday)}</td>
                                     <td>{e.idCard}</td>
@@ -73,9 +78,10 @@ export default function Customer() {
                                     <td>{e.gender.genderName}</td>
                                     <td>{e.customerType.typeName}</td>
                                     <td>
-                                        <div className="buttonEmployee color3 hover filler">edit</div>
+                                        <div className="buttonEmployee color3 hover filler"
+                                            onClick={() => handleEdit(e.id)}>edit</div>
                                         <div className="buttonEmployee color4 hover filler"
-                                             onClick={() => modalConfirm(e.name, "confirm", "Delete")}
+                                             onClick={() => modalConfirm(e.name, "confirm", e.id)}
                                         >delete</div>
                                     </td>
                                 </tr>

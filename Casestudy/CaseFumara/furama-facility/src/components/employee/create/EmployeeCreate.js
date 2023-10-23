@@ -1,8 +1,7 @@
-import "./EmployeeCreate.css";
 import * as Yup from 'yup'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useEffect, useState} from "react";
-import {departmentApi, educationApi, employeeApi, positionApi} from "../../../service/api_connection";
+import {departmentApi, educationApi, positionApi} from "../../../service/api_connection";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 export default function EmployeeCreate(){
@@ -45,9 +44,6 @@ export default function EmployeeCreate(){
                 console.log(err);
             }
         }
-        dataEducation();
-    }, []);
-    useEffect(() => {
         const dataPosition = async () => {
             try {
                 const data = await positionApi();
@@ -56,9 +52,6 @@ export default function EmployeeCreate(){
                 console.log(err);
             }
         }
-        dataPosition();
-    }, []);
-    useEffect(() => {
         const dataDepartment = async () => {
             try {
                 const data = await departmentApi();
@@ -67,6 +60,8 @@ export default function EmployeeCreate(){
                 console.log(err);
             }
         }
+        dataEducation();
+        dataPosition();
         dataDepartment();
     }, []);
 
@@ -88,7 +83,6 @@ export default function EmployeeCreate(){
                 id: values.department
             }
         }
-        console.log(newEmployee)
         try {
             const response = await axios.post('http://localhost:8080/api/create/employee/', newEmployee);
             navigate("/employee");
@@ -96,92 +90,112 @@ export default function EmployeeCreate(){
             console.log(err);
         }
     }
-    const locationHref = (link) => {
-        navigate(link);
+    const initialValue = {
+        name: "",
+        birthday: "",
+        idCard: "",
+        phone: "",
+        email: "",
+        salary: 0,
+        education: 0,
+        position: 0,
+        department: 0
     }
-    return(
-        <div>
-            <h1 className="titleCreateForm">Create New Employee</h1>
-            <Formik
-                initialValues={{name: ''}}
-                onSubmit={handleSubmit}
-                validationSchema={validation}>
-                <Form className="formCustomerCreate color1 filler">
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="name">Employee Name</label><br/>
-                        <Field type="text" id="name" name="name" /><br/>
-                        <ErrorMessage name="name" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="birthday">Employee Birthday</label><br/>
-                        <Field type="date" id="birthday" name="birthday" /><br/>
-                        <ErrorMessage name="birthday" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="idCard">Citizen Identification</label><br/>
-                        <Field type="text" id="idCard" name="idCard" /><br/>
-                        <ErrorMessage name="idCard" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="phone">Telephone Number</label><br/>
-                        <Field type="text" id="phone" name="phone" /><br/>
-                        <ErrorMessage name="phone" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="email">Email Address</label><br/>
-                        <Field type="text" id="email" name="email" /><br/>
-                        <ErrorMessage name="email" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="salary">Employee Salary</label><br/>
-                        <Field type="text" id="salary" name="salary" /><br/>
-                        <ErrorMessage name="salary" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="education">Employee Education</label><br/>
-                        <Field as="select" id="education" name="education">
-                            {education.map((e) => {
-                                return <option value={e.id} label={e.educationName}></option>
-                            })}
-                        </Field>
-                        <br/>
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="position">Employee Position</label><br/>
-                        <Field as="select" id="position" name="position">
-                            {position.map((e) => {
-                                return <option value={e.id} label={e.positionName}></option>
-                            })}
-                        </Field>
-                        <br/>
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="department">Employee Department</label><br/>
-                        <Field as="select" id="department" name="department">
-                            {department.map((e) => {
-                                return <option value={e.id} label={e.departmentName}></option>
-                            })}
-                        </Field>
-                        <br/>
-                    </div>
+    if (position.length = 0 || education.length == 0 || department.length == 0) {
+        return null;
+    } else {
+        return (
+            <div>
+                <h1 className="titleCreateForm">Create New Employee</h1>
+                <Formik
+                    initialValues={initialValue}
+                    onSubmit={handleSubmit}
+                    validationSchema={validation}>
+                    <Form className="formCustomerCreate color1 filler">
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="name">Employee Name</label><br/>
+                            <Field type="text" name="name"/><br/>
+                            <ErrorMessage name="name" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="birthday">Employee Birthday</label><br/>
+                            <Field type="date" name="birthday"/><br/>
+                            <ErrorMessage name="birthday" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="idCard">Citizen Identification</label><br/>
+                            <Field type="text" name="idCard"/><br/>
+                            <ErrorMessage name="idCard" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="phone">Telephone Number</label><br/>
+                            <Field type="text" name="phone"/><br/>
+                            <ErrorMessage name="phone" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="email">Email Address</label><br/>
+                            <Field type="text" name="email"/><br/>
+                            <ErrorMessage name="email" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="salary">Employee Salary</label><br/>
+                            <Field type="text" name="salary"/><br/>
+                            <ErrorMessage name="salary" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="education">Employee Education</label><br/>
+                            <Field as="select" name="education">
+                                <option value="" label="--select--" selected={true}></option>
+                                {education.map((e) => {
+                                    return <option value={e.id} label={e.educationName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="education" component="small"/>
+                            <br/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="position">Employee Position</label><br/>
+                            <Field as="select" name="position">
+                                <option value="" label="--select--" selected={true}></option>
+                                {position.map((e) => {
+                                    return <option value={e.id} label={e.positionName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="position" component="small"/>
+                            <br/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="department">Employee Department</label><br/>
+                            <Field as="select" name="department">
+                                <option value="" label="--select--" selected={true}></option>
+                                {department.map((e) => {
+                                    return <option value={e.id} label={e.departmentName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="department" component="small"/>
+                            <br/>
+                        </div>
 
-
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div className="buttonFormCreate">
                         <div></div>
-                        <button className="filler hover color3" type="button"
-                                onClick={() => {locationHref("/employee")}}>Back</button>
-                        <button className="filler hover color4" type="submit">Submit</button>
-                    </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div className="buttonFormCreate">
+                            <div></div>
+                            <button className="filler hover color3" type="button"
+                                    onClick={() => {
+                                        navigate("/employee")
+                                    }}>Back
+                            </button>
+                            <button className="filler hover color4" type="submit">Submit</button>
+                        </div>
 
-                </Form>
-            </Formik>
+                    </Form>
+                </Formik>
 
-        </div>
-    )
+            </div>
+        )
+    }
 }

@@ -1,12 +1,12 @@
 import "./Facility.css";
 import {useState, useEffect} from "react";
-import Modal from "../modal/Modal";
+import Modal from "../../modal/Modal";
 import {useNavigate} from "react-router-dom";
-import {buildingApi} from "../../service/api_connection";
+import {buildingApi} from "../../../service/api_connection";
 export default function Facility() {
     const [buildingList, setbuildingList] = useState([]);
     const [modalContent, setModalContent] = useState("");
-    const [modalType, setModalType] = useState("confirm");
+    const [modalType, setModalType] = useState("");
     const [buildId, setBuildId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
@@ -21,12 +21,12 @@ export default function Facility() {
             }
         }
         fetchData();
-    },[]);
+    },[isModalOpen]);
 
-    const modalConfirm = (id, type, content) => {
+    const modalConfirm = (name, content, id) => {
         setBuildId(id);
-        setModalType(type);
-        setModalContent(content + " " + id);
+        setModalType("building");
+        setModalContent(name);
         setIsModalOpen(true);
     }
     const locationHref = (link) => {
@@ -39,7 +39,8 @@ export default function Facility() {
                 isModalOpen && <Modal
                     setIsModalOpen={setIsModalOpen}
                     modalContent={modalContent}
-                    modalType={modalType}/>
+                    modalType={modalType}
+                    objectId={buildId}/>
             }
             <div id="mainBody" className="color2">
                 {
@@ -54,14 +55,14 @@ export default function Facility() {
                                     </div>
                                     <div className="button hover color3">Edit</div>
                                     <div className="button hover color4"
-                                         onClick={() => modalConfirm(e.name, "confirm", "Delete")}
+                                         onClick={() => modalConfirm(e.name, "confirm", e.id)}
                                     >Delete</div>
                                 </div>
                             </div>
                         )
                     })
                 }
-                <div className="add buildDiv color1 filler" onClick={() => locationHref("/create")}>
+                <div className="add buildDiv color1 filler" onClick={() => locationHref("/buiding/create")}>
                     <div className="addBuild"></div>
                     <div className="addText">Add new Building</div>
                 </div>

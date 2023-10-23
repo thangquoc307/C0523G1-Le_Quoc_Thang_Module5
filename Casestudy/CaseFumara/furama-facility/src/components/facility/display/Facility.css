@@ -39,7 +39,7 @@
     margin-top: 20px;
 }
 .addBuild{
-    background-image: url("../header/image/add.png");
+    background-image: url("../../header/image/add.png");
     background-position: center;
     background-size: 20%;
     background-repeat: no-repeat;

@@ -6,7 +6,6 @@ import com.backendAPI.model.employee.Position;
 import java.time.LocalDate;
 
 public class EmployeeDto {
-    private Integer id;
     private String name;
     private LocalDate birthday;
     private String idCard;
@@ -20,8 +19,7 @@ public class EmployeeDto {
     public EmployeeDto() {
     }
 
-    public EmployeeDto(Integer id, String name, LocalDate birthday, String idCard, String phone, String email, Integer salary, Education education, Position position, Department department) {
-        this.id = id;
+    public EmployeeDto(String name, LocalDate birthday, String idCard, String phone, String email, Integer salary, Education education, Position position, Department department) {
         this.name = name;
         this.birthday = birthday;
         this.idCard = idCard;
@@ -31,14 +29,6 @@ public class EmployeeDto {
         this.education = education;
         this.position = position;
         this.department = department;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

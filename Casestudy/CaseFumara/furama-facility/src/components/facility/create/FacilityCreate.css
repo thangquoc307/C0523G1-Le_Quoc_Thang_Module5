@@ -1,0 +1,51 @@
+.formBuildCreate{
+    width: 80%;
+    margin: 2% 10%;
+    display: grid;
+    grid-template-rows: 70px 1fr 80px;
+    padding: 0;
+}
+.formBuildCreateHeader{
+    display: grid;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    padding: 0 60px;
+    grid-template-columns: repeat(3, 120px) 1fr;
+
+}
+.formBuildCreateHeader div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formInputBuilding{
+    padding: 40px 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.inputCreateBuilding{
+    height: 100px;
+}
+.inputCreateBuilding label{
+    margin-left: 20%;
+}
+.inputCreateBuilding small{
+    color: red;
+    margin-left: 20%;
+}
+.inputCreateBuilding input, .inputCreateBuilding select{
+    width: 60%;
+    margin: 10px 20%;
+}
+.buttonFormCreateBuilding{
+    display: grid;
+    grid-template-columns: 1fr repeat(2, 150px);
+    padding: 0 40px;
+}
+.buttonFormCreateBuilding button{
+    width: 90%;
+    height: 50px;
+    margin: 2% 5%;
+    border: none;
+    font-size: 16px;
+}

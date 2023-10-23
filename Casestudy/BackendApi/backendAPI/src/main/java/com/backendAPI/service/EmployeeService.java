@@ -30,9 +30,7 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public void createEmployee(Employee employee) {
-        if (employeeRepository.findById(employee.getId()) != null){
-            employeeRepository.save(employee);
-        }
+        employeeRepository.save(employee);
     }
 
     @Override
