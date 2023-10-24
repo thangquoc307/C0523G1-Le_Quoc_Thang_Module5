@@ -7,7 +7,6 @@ import com.backendAPI.repository.IBuildRepository;
 import com.backendAPI.repository.IRentTypeRepository;
 import com.backendAPI.repository.IRoomTypeRepository;
 import com.backendAPI.repository.IServiceRepository;
-import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

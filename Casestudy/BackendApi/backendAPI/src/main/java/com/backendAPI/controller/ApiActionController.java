@@ -1,10 +1,8 @@
 package com.backendAPI.controller;
 
-import com.backendAPI.dto.BuildingDto;
-import com.backendAPI.dto.CustomerDto;
-import com.backendAPI.dto.EmployeeDto;
-import com.backendAPI.dto.ObjectDelete;
+import com.backendAPI.dto.*;
 import com.backendAPI.model.build.Building;
+import com.backendAPI.model.contract.Contract;
 import com.backendAPI.model.customer.Customer;
 import com.backendAPI.model.employee.Employee;
 import com.backendAPI.service.IBuildService;
@@ -62,6 +60,17 @@ public class ApiActionController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
+    @PostMapping("create/contract")
+    public ResponseEntity<?> createContract(@RequestBody ContractDto contractDto){
+        if (contractDto == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            Contract contract = new Contract();
+            BeanUtils.copyProperties(contractDto, contract);
+            contractService.createContract(contract);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
     @PostMapping("delete")
     public ResponseEntity<?> deleteElement(@RequestBody ObjectDelete objectDelete){
         String type = objectDelete.getObjectType();
@@ -82,7 +91,7 @@ public class ApiActionController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("edit/employee")
+    @PatchMapping("edit/employee")
     public ResponseEntity<?> editEmployee(@RequestBody EmployeeDto employeeDto){
         if (employeeDto == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -93,7 +102,7 @@ public class ApiActionController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-    @PostMapping("edit/customer")
+    @PatchMapping("edit/customer")
     public ResponseEntity<?> editCustomer(@RequestBody CustomerDto customerDto){
         if (customerDto == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -104,7 +113,7 @@ public class ApiActionController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-    @PostMapping("edit/building")
+    @PatchMapping("edit/building")
     public ResponseEntity<?> editBuilding(@RequestBody BuildingDto buildingDto){
         if (buildingDto == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -112,6 +121,17 @@ public class ApiActionController {
             Building building = new Building();
             BeanUtils.copyProperties(buildingDto, building);
             buildService.createBuilding(building);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+    @PatchMapping("edit/contract")
+    public ResponseEntity<?> editContract(@RequestBody ContractDto contractDto){
+        if (contractDto == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else {
+            Contract contract = new Contract();
+            BeanUtils.copyProperties(contractDto, contract);
+            contractService.createContract(contract);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }

@@ -134,6 +134,15 @@ public class ApiDisplayController {
             return new ResponseEntity<>(positionList, HttpStatus.OK);
         }
     }
+    @GetMapping("contract")
+    public ResponseEntity<List<Contract>> getContract(){
+        List<Contract> contractList = contractService.getAllContract();
+        if (contractList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(contractList, HttpStatus.OK);
+        }
+    }
     @GetMapping("customer/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable int id){
         Customer customer = customerService.getCustomerById(id);
@@ -161,13 +170,13 @@ public class ApiDisplayController {
             return new ResponseEntity<>(building, HttpStatus.OK);
         }
     }
-    @GetMapping("contract")
-    public ResponseEntity<List<Contract>> getContract(){
-        List<Contract> contractList = contractService.getAllContract();
-        if (contractList.isEmpty()){
+    @GetMapping("contract/{id}")
+    public ResponseEntity<Contract> getContract(@PathVariable int id){
+        Contract contract = contractService.getContractById(id);
+        if (contract == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            return new ResponseEntity<>(contractList, HttpStatus.OK);
+            return new ResponseEntity<>(contract, HttpStatus.OK);
         }
     }
 }

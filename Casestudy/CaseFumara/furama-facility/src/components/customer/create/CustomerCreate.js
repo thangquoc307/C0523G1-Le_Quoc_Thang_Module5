@@ -27,10 +27,12 @@ export default function CustomerCreate(){
             .matches(/^.+@.+\..+$/, "Error email format"),
         address: Yup.string()
             .required("Please fill the address"),
-        gender: Yup.string()
-            .required("Please choose Gender"),
-        customerType: Yup.string()
-            .required("Please choose Customer Type"),
+        gender: Yup.object().shape({
+            id: Yup.number().min(1, "Please choose Gender")
+        }),
+        customerType: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Customer Type")
+        })
     })
 
     useEffect(() => {
@@ -55,22 +57,8 @@ export default function CustomerCreate(){
     }, []);
 
     const handleSubmit = async (values) => {
-        const newCustomer = {
-            name: values.name,
-            birthday: values.birthday,
-            idCard: values.idCard,
-            phone: values.phone,
-            email: values.email,
-            address: values.address,
-            gender: {
-                id: values.gender
-            },
-            customerType: {
-                id: values.customerType
-            }
-        }
         try {
-            const response = await axios.post('http://localhost:8080/api/create/customer/', newCustomer);
+            const response = await axios.post('http://localhost:8080/api/create/customer/', values);
             navigate("/customer");
         } catch (err) {
             console.log(err);
@@ -83,8 +71,12 @@ export default function CustomerCreate(){
         phone: "",
         email: "",
         address: "",
-        gender: 0,
-        customerType: 0,
+        gender: {
+            id: 0
+        },
+        customerType: {
+            id: 0
+        }
     }
 
     if (genderList.length == 0 || customerType.length == 0) {
@@ -129,28 +121,27 @@ export default function CustomerCreate(){
                             <ErrorMessage name="address" component="small"/>
                         </div>
                         <div className="inputCreateCustomer">
-                            <label htmlFor="gender">Customer Gender</label><br/>
-                            <Field as="select" name="gender">
-                                <option value="" label="--select--" selected={true}></option>
+                            <label htmlFor="gender.id">Customer Gender</label><br/>
+                            <Field as="select" name="gender.id">
+                                <option value="0" label="--select--"></option>
                                 {genderList.map((e) => {
                                     return <option value={e.id} label={e.genderName}></option>
                                 })}
                             </Field>
-                            <ErrorMessage name="gender" component="small"/>
+                            <ErrorMessage name="gender.id" component="small"/>
                             <br/>
                         </div>
                         <div className="inputCreateCustomer">
-                            <label htmlFor="customerType">Customer Type</label><br/>
-                            <Field as="select" name="customerType">
-                                <option value="" label="--select--" selected={true}></option>
+                            <label htmlFor="customerType.id">Customer Type</label><br/>
+                            <Field as="select" name="customerType.id">
+                                <option value="0" label="--select--"></option>
                                 {customerType.map((e) => {
                                     return <option value={e.id} label={e.typeName}></option>
                                 })}
                             </Field>
-                            <ErrorMessage name="customerType" component="small"/>
+                            <ErrorMessage name="customerType.id" component="small"/>
                             <br/>
                         </div>
-
                         <div></div>
                         <div></div>
                         <div></div>
@@ -163,10 +154,8 @@ export default function CustomerCreate(){
                             </button>
                             <button className="filler hover color4" type="submit">Submit</button>
                         </div>
-
                     </Form>
                 </Formik>
-
             </div>
         )
     }

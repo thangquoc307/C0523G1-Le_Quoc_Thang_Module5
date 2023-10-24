@@ -15,10 +15,36 @@ export default function ContractCreate(){
         code: Yup.string()
             .required("Please fill the Contract Code")
             .matches(/^LQT-[0-9]{3}$/, "Code format is LQT-XXX (X : 0-9)"),
-        checkInDate: Yup.date().required("Please choose check in date"),
-        checkOutDate: Yup.date().required("Please choose check out date"),
+        checkInDate: Yup.date().required("Please choose check in date")
+            .test({
+                test: (dateCheck) => {
+                    let checkIn = new Date(dateCheck);
+                    let now = new Date();
+                    checkIn.setDate(checkIn.getDate() - 2);
+                    return checkIn >= now;
+                },
+                message: "Please book must be at least 2 days after now"
+            }),
+        checkOutDate: Yup.date().required("Please choose check out date")
+            .test({
+                test: (dateCheck,context) => {
+                    const checkInDate = context.parent.checkInDate;
+                    let checkIn = new Date(checkInDate);
+                    let checkOut = new Date(dateCheck);
+                    checkIn.setDate(checkIn.getDate() + 1);
+                    return checkIn <= checkOut;
+                },
+                message: "Check out must be at least 1 days after check in"
+            }),
         deposit: Yup.number().required("Please enter deposit")
-            .min(1, "Deposit over than 0"),
+            .min(1, "Deposit over than 0")
+            .test({
+                test: (moneyDeposit,context) => {
+                    let payment = +context.parent.payment;
+                    return +moneyDeposit >= payment / 10;
+                },
+                message: "Deposit over than 10% Payment"
+            }),
         payment: Yup.number().required("Please enter payment")
             .min(1, "Payment over than 0"),
         building: Yup.object().shape({
@@ -53,10 +79,6 @@ export default function ContractCreate(){
         getBuilding();
         getEmployee();
         getCustomer();
-
-        console.log(buildingList)
-        console.log(employeeList)
-        console.log(customerList)
     },[])
 
     const handleSubmit = async (values) => {
@@ -92,7 +114,7 @@ export default function ContractCreate(){
     } else {
         return (
             <div>
-                <h1 className="titleCreateForm">Create New Customer</h1>
+                <h1 className="titleCreateForm">Create New Contract</h1>
                 <Formik
                     initialValues={initialValue}
                     onSubmit={handleSubmit}

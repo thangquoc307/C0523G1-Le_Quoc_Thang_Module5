@@ -27,12 +27,15 @@ export default function EmployeeCreate(){
         salary: Yup.number()
             .required("Please enter the Salary")
             .min(5000000, "The salary over than 5,000,000"),
-        education: Yup.number()
-            .min(1,"Please choose Education"),
-        position: Yup.number()
-            .min(1,"Please choose Position"),
-        department: Yup.number()
-            .min(1,"Please choose Department"),
+        education: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Education")
+        }),
+        position: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Position")
+        }),
+        department: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Department")
+        })
     })
     const dataEducation = async () => {
         try {
@@ -66,25 +69,8 @@ export default function EmployeeCreate(){
     }, []);
 
     const handleSubmit = async (values) => {
-        const newEmployee = {
-            name: values.name,
-            birthday: values.birthday,
-            idCard: values.idCard,
-            phone: values.phone,
-            email: values.email,
-            salary: values.salary,
-            education: {
-                id: values.education
-            },
-            position: {
-                id: values.position
-            },
-            department: {
-                id: values.department
-            }
-        }
         try {
-            const response = await axios.post('http://localhost:8080/api/create/employee/', newEmployee);
+            const response = await axios.post('http://localhost:8080/api/create/employee/', values);
             navigate("/employee");
         } catch (err) {
             console.log(err);
@@ -97,9 +83,15 @@ export default function EmployeeCreate(){
         phone: "",
         email: "",
         salary: 0,
-        education: 0,
-        position: 0,
-        department: 0
+        education: {
+            id: 0
+        },
+        position: {
+            id: 0
+        },
+        department: {
+            id: 0
+        }
     }
     if (position.length == 0 || education.length == 0 || department.length == 0) {
         return null;
@@ -143,36 +135,36 @@ export default function EmployeeCreate(){
                             <ErrorMessage name="salary" component="small"/>
                         </div>
                         <div className="inputCreateCustomer">
-                            <label htmlFor="education">Employee Education</label><br/>
-                            <Field as="select" name="education">
-                                <option value="0" label="--select--" selected={true}></option>
+                            <label htmlFor="education.id">Employee Education</label><br/>
+                            <Field as="select" name="education.id">
+                                <option value="0" label="--select--"></option>
                                 {education.map((e) => {
                                     return <option value={e.id} label={e.educationName}></option>
                                 })}
                             </Field>
-                            <ErrorMessage name="education" component="small"/>
+                            <ErrorMessage name="education.id" component="small"/>
                             <br/>
                         </div>
                         <div className="inputCreateCustomer">
-                            <label htmlFor="position">Employee Position</label><br/>
-                            <Field as="select" name="position">
-                                <option value="0" label="--select--" selected={true}></option>
+                            <label htmlFor="position.id">Employee Position</label><br/>
+                            <Field as="select" name="position.id">
+                                <option value="0" label="--select--"></option>
                                 {position.map((e) => {
                                     return <option value={e.id} label={e.positionName}></option>
                                 })}
                             </Field>
-                            <ErrorMessage name="position" component="small"/>
+                            <ErrorMessage name="position.id" component="small"/>
                             <br/>
                         </div>
                         <div className="inputCreateCustomer">
-                            <label htmlFor="department">Employee Department</label><br/>
-                            <Field as="select" name="department">
-                                <option value="0" label="--select--" selected={true}></option>
+                            <label htmlFor="department.id">Employee Department</label><br/>
+                            <Field as="select" name="department.id">
+                                <option value="0" label="--select--"></option>
                                 {department.map((e) => {
                                     return <option value={e.id} label={e.departmentName}></option>
                                 })}
                             </Field>
-                            <ErrorMessage name="department" component="small"/>
+                            <ErrorMessage name="department.id" component="small"/>
                             <br/>
                         </div>
 

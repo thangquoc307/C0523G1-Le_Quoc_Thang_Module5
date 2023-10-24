@@ -69,24 +69,8 @@ export default function CustomerEdit(){
         dataType();
     }, []);
     const handleSubmit = async (values) => {
-        const newCustomer = {
-            id: +dataEdit.id,
-            name: values.name,
-            birthday: values.birthday,
-            idCard: values.idCard,
-            phone: values.phone,
-            email: values.email,
-            address: values.address,
-            gender: {
-                id: values.gender.id
-            },
-            customerType: {
-                id: values.customerType.id
-            }
-        }
         try {
-            console.log(newCustomer)
-            const response = await axios.post('http://localhost:8080/api/edit/customer/', newCustomer);
+            const response = await axios.patch('http://localhost:8080/api/edit/customer/', values);
             navigate("/customer");
         } catch (err) {
             console.log(err);

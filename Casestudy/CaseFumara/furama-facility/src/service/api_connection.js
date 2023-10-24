@@ -119,4 +119,11 @@ export const buildingByIdApi = async (elementId) => {
         console.log(err);
     }
 }
-
+export const contractByIdApi = async (elementId) => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/contract/" + elementId);
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}

@@ -2,7 +2,6 @@ import * as Yup from 'yup'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useEffect, useState} from "react";
 import {
-    customerByIdApi,
     departmentApi,
     educationApi,
     employeeByIdApi,
@@ -89,26 +88,8 @@ export default function EmployeeEdit({}){
     }, []);
 
     const handleSubmit = async (values) => {
-        const newEmployee = {
-            id: dataEdit.id,
-            name: values.name,
-            birthday: values.birthday,
-            idCard: values.idCard,
-            phone: values.phone,
-            email: values.email,
-            salary: values.salary,
-            education: {
-                id: values.education.id
-            },
-            position: {
-                id: values.position.id
-            },
-            department: {
-                id: values.department.id
-            }
-        }
         try {
-            const response = await axios.post('http://localhost:8080/api/edit/employee/', newEmployee);
+            const response = await axios.patch('http://localhost:8080/api/edit/employee/', values);
             navigate("/employee");
         } catch (err) {
             console.log(err);
