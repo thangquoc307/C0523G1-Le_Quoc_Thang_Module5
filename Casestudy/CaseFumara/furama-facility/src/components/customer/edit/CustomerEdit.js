@@ -98,7 +98,7 @@ export default function CustomerEdit(){
     } else {
         return (
             <div>
-                <h1 className="titleCreateForm">Create New Customer</h1>
+                <h1 className="titleCreateForm">Edit Customer</h1>
                 <Formik
                     initialValues={dataEdit}
                     onSubmit={handleSubmit}

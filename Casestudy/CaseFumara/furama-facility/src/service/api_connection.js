@@ -1,4 +1,12 @@
 import axios from "axios";
+export const contractApi = async () => {
+    try {
+        const reponse = await axios.get("http://localhost:8080/api/contract/");
+        return reponse;
+    } catch (err) {
+        console.log(err);
+    }
+}
 export const buildingApi = async () => {
     try {
         const response = await axios.get("http://localhost:8080/api/building/");
@@ -111,3 +119,4 @@ export const buildingByIdApi = async (elementId) => {
         console.log(err);
     }
 }
+

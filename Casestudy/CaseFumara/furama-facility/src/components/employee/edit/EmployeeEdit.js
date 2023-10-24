@@ -15,8 +15,6 @@ export default function EmployeeEdit({}){
     const {id} = useParams();
     const [dataEdit, setDataEdit] = useState();
 
-
-
     const [education, setEducation] = useState([]);
     const [position, setPosition] = useState([]);
     const [department, setDepartment] = useState([]);
@@ -92,6 +90,7 @@ export default function EmployeeEdit({}){
 
     const handleSubmit = async (values) => {
         const newEmployee = {
+            id: dataEdit.id,
             name: values.name,
             birthday: values.birthday,
             idCard: values.idCard,
@@ -120,7 +119,7 @@ export default function EmployeeEdit({}){
     } else {
         return (
             <div>
-                <h1 className="titleCreateForm">Create New Employee</h1>
+                <h1 className="titleCreateForm">Edit Employee</h1>
                 <Formik
                     initialValues={dataEdit}
                     onSubmit={handleSubmit}

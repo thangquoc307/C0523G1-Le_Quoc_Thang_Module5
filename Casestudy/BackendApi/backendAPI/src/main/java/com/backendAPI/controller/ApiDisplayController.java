@@ -3,6 +3,7 @@ package com.backendAPI.controller;
 import com.backendAPI.model.build.Building;
 import com.backendAPI.model.build.RentType;
 import com.backendAPI.model.build.RoomType;
+import com.backendAPI.model.contract.Contract;
 import com.backendAPI.model.contract.Service;
 import com.backendAPI.model.customer.Customer;
 import com.backendAPI.model.customer.CustomerType;
@@ -12,6 +13,7 @@ import com.backendAPI.model.employee.Education;
 import com.backendAPI.model.employee.Employee;
 import com.backendAPI.model.employee.Position;
 import com.backendAPI.service.IBuildService;
+import com.backendAPI.service.IContractService;
 import com.backendAPI.service.ICustomerService;
 import com.backendAPI.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class ApiDisplayController {
     private ICustomerService customerService;
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private IContractService contractService;
     @GetMapping("building")
     public ResponseEntity<List<Building>> getBuidingList(){
         List<Building> buildingList = buildService.getAllBuilding();
@@ -155,6 +159,15 @@ public class ApiDisplayController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(building, HttpStatus.OK);
+        }
+    }
+    @GetMapping("contract")
+    public ResponseEntity<List<Contract>> getContract(){
+        List<Contract> contractList = contractService.getAllContract();
+        if (contractList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(contractList, HttpStatus.OK);
         }
     }
 }

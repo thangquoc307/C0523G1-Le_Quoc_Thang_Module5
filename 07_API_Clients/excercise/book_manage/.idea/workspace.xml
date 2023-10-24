@@ -4,66 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42e4dab2-93b7-43e6-a350-9ace7baa05e4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/public/robots.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/books/Book.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/books/BookDetail.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/books/CreateBook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/reportWebVitals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/book-manage/src/setupTests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/dto/CustomerDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/dto/CustomerDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/RentType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/RentType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/RoomType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/build/RoomType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/Contract.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/Contract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/DetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/DetailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/contract/Service.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/CustomerType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/CustomerType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/customer/Gender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Department.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Department.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Education.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Education.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/model/employee/Position.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IBuildRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IBuildRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IContractRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IContractRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/ICustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/ICustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/ICustomerTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/ICustomerTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IDepartmentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IDepartmentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IDetailServiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IDetailServiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IEducationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IEducationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IEmployeeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IEmployeeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IGenderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IGenderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IPositionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IPositionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IRentTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IRentTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IRoomTypeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IRoomTypeRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IServiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/repository/IServiceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/BuildService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/BuildService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/CustomerTypeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/CustomerTypeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/EmployeeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/BackendApi/backendAPI/src/main/java/com/backendAPI/service/EmployeeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/customer/edit/CustomerEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/customer/edit/CustomerEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/create/EmployeeCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/create/EmployeeCreate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/display/Employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/display/Employee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/edit/EmployeeEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/employee/edit/EmployeeEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/facility/create/FacilityCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Casestudy/CaseFumara/furama-facility/src/components/facility/create/FacilityCreate.js" afterDir="false" />
-    </list>
+    <list default="true" id="42e4dab2-93b7-43e6-a350-9ace7baa05e4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -98,6 +39,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/Codegym/C0523G1-Le_Quoc_Thang_Module5/Casestudy/CaseFumara",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,7 +61,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1698121793404</updated>
-      <workItem from="1698121794383" duration="5916000" />
+      <workItem from="1698121794383" duration="6285000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,53 @@
+#contractTable{
+    width: 86%;
+    margin: 0 7%;
+    padding: 20px;
+}
+#contractTable tbody tr:nth-child(odd){
+    background-color: #EAE9E5;
+}
+#contractTable thead th{
+    padding-bottom: 20px;
+}
+#contractTable tbody td:nth-child(1){
+    width: 5%;
+    text-align: center;
+}
+#contractTable tbody td:nth-child(2){
+    width: 8%;
+}
+#contractTable tbody td:nth-child(3){
+    width: 9%;
+    text-align: center;
+}
+#contractTable tbody td:nth-child(4){
+    width: 9%;
+    text-align: center;
+}
+#contractTable tbody td:nth-child(5){
+    width: 10%;
+    text-align: center;
+}
+#contractTable tbody td:nth-child(6){
+    width: 10%;
+    text-align: center;
+
+}
+#contractTable tbody td:nth-child(7){
+    width: 14%;
+}
+#contractTable tbody td:nth-child(8){
+    width: 10%;
+}
+#contractTable tbody td:nth-child(9){
+    width: 10%;
+}
+#contractTable tbody td:nth-child(10){
+    width: 15%;
+}
+#contractTable tr{
+    height: 75px;
+}
+#contractTable td{
+    padding: 0 10px;
+}

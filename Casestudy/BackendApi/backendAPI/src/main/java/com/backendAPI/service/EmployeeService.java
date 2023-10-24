@@ -36,10 +36,9 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public void editEmployee(Employee employee) {
-        if (employee != null) {
-            if (employee.getIsDelete() == 0) {
-                employeeRepository.save(employee);
-            }
+        Employee check = getEmployeeById(employee.getId());
+        if (check != null) {
+            employeeRepository.save(employee);
         }
     }
 
@@ -47,16 +46,20 @@ public class EmployeeService implements IEmployeeService{
     public void deleteEmployeeById(Integer employeeId) {
         Employee employee = getEmployeeById(employeeId);
         if (employee != null) {
-            if (employee.getIsDelete() == 0){
-                employee.setIsDelete(1);
-                employeeRepository.save(employee);
-            }
+            employee.setIsDelete(1);
+            employeeRepository.save(employee);
         }
     }
 
     @Override
     public Employee getEmployeeById(Integer employeeId) {
-        return employeeRepository.findById(employeeId).get();
+        Employee employee = employeeRepository.findById(employeeId).get();
+        if (employee != null) {
+            if (employee.getIsDelete() == 0){
+                return employee;
+            }
+        }
+        return null;
     }
 
     @Override

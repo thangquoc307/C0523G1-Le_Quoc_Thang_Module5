@@ -30,9 +30,6 @@ export default function Employee() {
         setModalContent(name);
         setIsModalOpen(true);
     }
-    const locationHref = (link) => {
-        navigate(link);
-    }
     return (
         <>
             {
@@ -44,7 +41,7 @@ export default function Employee() {
             }
             <div>
                 <div className="createNew color3 hover filler"
-                    onClick={() => {locationHref("/employee/create")}}>+ Employee</div>
+                    onClick={() => {navigate("/employee/create")}}>+ Employee</div>
                 <table id="employeeTable" className="color1 filler">
                     <thead>
                     <tr>

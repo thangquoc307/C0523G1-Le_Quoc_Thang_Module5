@@ -34,25 +34,28 @@ public class BuildService implements IBuildService{
     }
     @Override
     public void editBuilding(Building building) {
-        if (building != null){
-            if (building.getIsDelete() == 0){
-                buildRepository.save(building);
-            }
+        Building check = getBuildingById(building.getId());
+        if (check != null){
+            buildRepository.save(building);
         }
     }
     @Override
     public void deleteBuilding(Integer buildId) {
         Building building = getBuildingById(buildId);
         if (building != null){
-            if (building.getIsDelete() == 0){
-                building.setIsDelete(1);
-                buildRepository.save(building);
-            }
+            building.setIsDelete(1);
+            buildRepository.save(building);
         }
     }
     @Override
     public Building getBuildingById(Integer id) {
-        return buildRepository.findById(id).get();
+        Building building =  buildRepository.findById(id).get();
+        if (building != null) {
+            if (building.getIsDelete() == 0) {
+                return building;
+            }
+        }
+        return null;
     }
     @Override
     public List<RentType> getAllRentType() {

@@ -13,3 +13,17 @@ export const standardPhone = (phoneString) => {
         return num1 + "." + num2 + "." + num3;
     }
 }
+export const standardMoney = (money) => {
+    let moneyStandard ="";
+    let moneyString = money + "";
+    let k = 0;
+    for (let i = moneyString.length - 1; i >= 0; i--){
+        k++;
+        moneyStandard = moneyString[i] + moneyStandard;
+        if (k % 3 == 0 && i != 0) {
+            moneyStandard = "," + moneyStandard;
+        }
+    }
+
+    return moneyStandard
+}

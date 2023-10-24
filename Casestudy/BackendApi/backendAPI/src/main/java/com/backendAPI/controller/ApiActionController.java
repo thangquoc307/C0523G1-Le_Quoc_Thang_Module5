@@ -8,6 +8,7 @@ import com.backendAPI.model.build.Building;
 import com.backendAPI.model.customer.Customer;
 import com.backendAPI.model.employee.Employee;
 import com.backendAPI.service.IBuildService;
+import com.backendAPI.service.IContractService;
 import com.backendAPI.service.ICustomerService;
 import com.backendAPI.service.IEmployeeService;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +27,8 @@ public class ApiActionController {
     private ICustomerService customerService;
     @Autowired
     private IEmployeeService employeeService;
+    @Autowired
+    private IContractService contractService;
     @PostMapping("create/customer")
     public ResponseEntity<?> createCustomer(@RequestBody CustomerDto customerDto){
         if (customerDto == null){
@@ -72,6 +75,9 @@ public class ApiActionController {
                 break;
             case "employee":
                 employeeService.deleteEmployeeById(id);
+                break;
+            case "contract":
+                contractService.deleteContract(id);
                 break;
         }
         return new ResponseEntity<>(HttpStatus.OK);

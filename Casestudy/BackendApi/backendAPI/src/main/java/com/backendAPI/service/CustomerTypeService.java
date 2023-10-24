@@ -32,10 +32,9 @@ public class CustomerTypeService implements ICustomerService {
 
     @Override
     public void editCustomer(Customer customer) {
-        if (customer != null){
-            if (customer.getIsDelete() == 0){
-                customerRepository.save(customer);
-            }
+        Customer check = getCustomerById(customer.getId());
+        if (check != null){
+            customerRepository.save(customer);
         }
     }
 
@@ -43,16 +42,18 @@ public class CustomerTypeService implements ICustomerService {
     public void deleteCustomer(Integer customerId) {
         Customer customer = getCustomerById(customerId);
         if (customer != null) {
-            if (customer.getIsDelete() == 0){
-                customer.setIsDelete(1);
-                customerRepository.save(customer);
-            }
+            customer.setIsDelete(1);
+            customerRepository.save(customer);
         }
     }
 
     @Override
     public Customer getCustomerById(Integer customerId) {
-        return customerRepository.findById(customerId).get();
+        Customer customer = customerRepository.findById(customerId).get();
+        if (customer != null) {
+            return customer;
+        }
+        return null;
     }
 
     @Override
