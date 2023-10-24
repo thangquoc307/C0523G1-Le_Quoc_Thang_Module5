@@ -19,6 +19,8 @@ public class Customer {
     private String phone;
     private String email;
     private String address;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @ManyToOne
     @JoinColumn(name = "genderId", referencedColumnName = "id")
     private Gender gender;
@@ -30,6 +32,14 @@ public class Customer {
     private List<Contract> contracts;
 
     public Customer() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

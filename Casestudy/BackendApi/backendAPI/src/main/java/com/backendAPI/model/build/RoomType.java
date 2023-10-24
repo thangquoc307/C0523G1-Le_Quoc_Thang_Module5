@@ -12,11 +12,21 @@ public class RoomType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String typeName;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @JsonBackReference
     @OneToMany(mappedBy = "roomType")
     private List<Building> buildings;
 
     public RoomType() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

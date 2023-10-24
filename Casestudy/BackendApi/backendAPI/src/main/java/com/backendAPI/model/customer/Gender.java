@@ -12,11 +12,21 @@ public class Gender {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String genderName;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @JsonBackReference
     @OneToMany(mappedBy = "gender")
     private List<Customer> customers;
 
     public Gender() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

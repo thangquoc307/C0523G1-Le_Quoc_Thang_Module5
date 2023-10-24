@@ -19,6 +19,8 @@ public class Building {
     private String img;
     private Integer level;
     private Double poolArea;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @ManyToOne
     @JoinColumn(name = "rentTypeId", referencedColumnName = "id")
     private RentType rentType;
@@ -30,6 +32,14 @@ public class Building {
     private List<Contract> contracts;
 
     public Building() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

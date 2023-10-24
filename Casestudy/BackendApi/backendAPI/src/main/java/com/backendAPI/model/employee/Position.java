@@ -12,11 +12,21 @@ public class Position {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String positionName;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @JsonBackReference
     @OneToMany(mappedBy = "position")
     private List<Employee> employees;
 
     public Position() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

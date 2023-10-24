@@ -19,6 +19,8 @@ public class Employee {
     private String phone;
     private String email;
     private Integer salary;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @ManyToOne
     @JoinColumn(name = "educationId", referencedColumnName = "id")
     private Education education;
@@ -33,6 +35,14 @@ public class Employee {
     private List<Contract> contracts;
 
     public Employee() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

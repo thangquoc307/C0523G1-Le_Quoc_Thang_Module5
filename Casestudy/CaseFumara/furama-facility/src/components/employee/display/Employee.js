@@ -75,7 +75,8 @@ export default function Employee() {
                                     <td>{e.position.positionName}</td>
                                     <td>{e.department.departmentName}</td>
                                     <td>
-                                        <div className="buttonEmployee color3 hover filler">edit</div>
+                                        <div className="buttonEmployee color3 hover filler"
+                                            onClick={() => navigate("/employee/edit/" + e.id)}>edit</div>
                                         <div className="buttonEmployee color4 hover filler"
                                              onClick={() => modalConfirm(e.name, "confirm", e.id)}
                                         >delete</div>

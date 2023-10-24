@@ -21,25 +21,32 @@ public class CustomerTypeService implements ICustomerService {
     private ICustomerTypeRepository customerTypeRepository;
     @Override
     public List<Customer> getAllCustomer() {
-        return customerRepository.findAll();
+        return customerRepository.findAllByIsDeleteIs(0);
     }
 
     @Override
     public void createCustomer(Customer customer) {
+        customer.setIsDelete(0);
         customerRepository.save(customer);
     }
 
     @Override
     public void editCustomer(Customer customer) {
-        if (customerRepository.findById(customer.getId()) != null){
-            customerRepository.save(customer);
+        if (customer != null){
+            if (customer.getIsDelete() == 0){
+                customerRepository.save(customer);
+            }
         }
     }
 
     @Override
     public void deleteCustomer(Integer customerId) {
-        if (customerRepository.findById(customerId) != null){
-            customerRepository.deleteById(customerId);
+        Customer customer = getCustomerById(customerId);
+        if (customer != null) {
+            if (customer.getIsDelete() == 0){
+                customer.setIsDelete(1);
+                customerRepository.save(customer);
+            }
         }
     }
 
@@ -50,11 +57,11 @@ public class CustomerTypeService implements ICustomerService {
 
     @Override
     public List<Gender> getAllGender() {
-        return genderRepository.findAll();
+        return genderRepository.findAllByIsDeleteIs(0);
     }
 
     @Override
     public List<CustomerType> getAllCustomerType() {
-        return customerTypeRepository.findAll();
+        return customerTypeRepository.findAllByIsDeleteIs(0);
     }
 }

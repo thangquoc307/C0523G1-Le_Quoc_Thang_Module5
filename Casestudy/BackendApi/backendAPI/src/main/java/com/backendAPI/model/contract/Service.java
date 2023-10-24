@@ -13,11 +13,21 @@ public class Service {
     private String name;
     private String digit;
     private Integer value;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @JsonBackReference
     @OneToMany(mappedBy = "service")
     private List<DetailService> detailServices;
 
     public Service() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

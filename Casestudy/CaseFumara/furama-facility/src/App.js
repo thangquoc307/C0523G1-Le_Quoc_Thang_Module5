@@ -18,7 +18,7 @@ function App() {
           <div id="body" className="color2">
               <Routes>
                   <Route path="/" element={<HeaderFacility/>}/>
-                  <Route path="/building/*" element={<HeaderFacility/>}/>
+                  <Route path="/buiding/*" element={<HeaderFacility/>}/>
                   <Route path="/employee/*" element={<HeaderEmployee/>}/>
                   <Route path="/customer/*" element={<HeaderCustomer/>}/>
                   <Route path="/contract/*" element={<HeaderContract/>}/>
@@ -29,7 +29,7 @@ function App() {
                   <Route path="/customer" element={<Customer/>}/>
 
 
-                  <Route path="/employee/edit" element={<EmployeeEdit/>}/>
+                  <Route path="/employee/edit/:id" element={<EmployeeEdit/>}/>
                   <Route path="/customer/edit/:id" element={<CustomerEdit/>}/>
 
 

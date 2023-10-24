@@ -7,6 +7,7 @@ import com.backendAPI.repository.IBuildRepository;
 import com.backendAPI.repository.IRentTypeRepository;
 import com.backendAPI.repository.IRoomTypeRepository;
 import com.backendAPI.repository.IServiceRepository;
+import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +25,29 @@ public class BuildService implements IBuildService{
     private IServiceRepository serviceRepository;
     @Override
     public List<Building> getAllBuilding() {
-        return buildRepository.findAll();
+        return buildRepository.findAllByIsDeleteIs(0);
     }
     @Override
     public void createBuilding(Building building) {
+        building.setIsDelete(0);
         buildRepository.save(building);
     }
     @Override
     public void editBuilding(Building building) {
-        if (buildRepository.findById(building.getId()) != null){
-            buildRepository.save(building);
+        if (building != null){
+            if (building.getIsDelete() == 0){
+                buildRepository.save(building);
+            }
         }
     }
     @Override
     public void deleteBuilding(Integer buildId) {
-        if (buildRepository.findById(buildId) != null){
-            buildRepository.deleteById(buildId);
+        Building building = getBuildingById(buildId);
+        if (building != null){
+            if (building.getIsDelete() == 0){
+                building.setIsDelete(1);
+                buildRepository.save(building);
+            }
         }
     }
     @Override
@@ -48,14 +56,14 @@ public class BuildService implements IBuildService{
     }
     @Override
     public List<RentType> getAllRentType() {
-        return rentTypeRepository.findAll();
+        return rentTypeRepository.findAllByIsDeleteIs(0);
     }
     @Override
     public List<RoomType> getAllRoomType() {
-        return roomTypeRepository.findAll();
+        return roomTypeRepository.findAllByIsDeleteIs(0);
     }
     @Override
     public List<com.backendAPI.model.contract.Service> getAllService() {
-        return serviceRepository.findAll();
+        return serviceRepository.findAllByIsDeleteIs(0);
     }
 }

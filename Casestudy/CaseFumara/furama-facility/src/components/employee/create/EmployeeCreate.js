@@ -27,39 +27,39 @@ export default function EmployeeCreate(){
         salary: Yup.number()
             .required("Please enter the Salary")
             .min(5000000, "The salary over than 5,000,000"),
-        education: Yup.string()
-            .required("Please choose Education"),
-        position: Yup.string()
-            .required("Please choose Position"),
-        department: Yup.string()
-            .required("Please choose Department"),
+        education: Yup.number()
+            .min(1,"Please choose Education"),
+        position: Yup.number()
+            .min(1,"Please choose Position"),
+        department: Yup.number()
+            .min(1,"Please choose Department"),
     })
-
+    const dataEducation = async () => {
+        try {
+            const data = await educationApi();
+            setEducation(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const dataPosition = async () => {
+        try {
+            const data = await positionApi();
+            setPosition(data.data);
+            console.log(data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const dataDepartment = async () => {
+        try {
+            const data = await departmentApi();
+            setDepartment(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
     useEffect(() => {
-        const dataEducation = async () => {
-            try {
-                const data = await educationApi();
-                setEducation(data.data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        const dataPosition = async () => {
-            try {
-                const data = await positionApi();
-                setPosition(data.data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        const dataDepartment = async () => {
-            try {
-                const data = await departmentApi();
-                setDepartment(data.data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
         dataEducation();
         dataPosition();
         dataDepartment();
@@ -101,7 +101,7 @@ export default function EmployeeCreate(){
         position: 0,
         department: 0
     }
-    if (position.length = 0 || education.length == 0 || department.length == 0) {
+    if (position.length == 0 || education.length == 0 || department.length == 0) {
         return null;
     } else {
         return (
@@ -145,7 +145,7 @@ export default function EmployeeCreate(){
                         <div className="inputCreateCustomer">
                             <label htmlFor="education">Employee Education</label><br/>
                             <Field as="select" name="education">
-                                <option value="" label="--select--" selected={true}></option>
+                                <option value="0" label="--select--" selected={true}></option>
                                 {education.map((e) => {
                                     return <option value={e.id} label={e.educationName}></option>
                                 })}
@@ -156,7 +156,7 @@ export default function EmployeeCreate(){
                         <div className="inputCreateCustomer">
                             <label htmlFor="position">Employee Position</label><br/>
                             <Field as="select" name="position">
-                                <option value="" label="--select--" selected={true}></option>
+                                <option value="0" label="--select--" selected={true}></option>
                                 {position.map((e) => {
                                     return <option value={e.id} label={e.positionName}></option>
                                 })}
@@ -167,7 +167,7 @@ export default function EmployeeCreate(){
                         <div className="inputCreateCustomer">
                             <label htmlFor="department">Employee Department</label><br/>
                             <Field as="select" name="department">
-                                <option value="" label="--select--" selected={true}></option>
+                                <option value="0" label="--select--" selected={true}></option>
                                 {department.map((e) => {
                                     return <option value={e.id} label={e.departmentName}></option>
                                 })}

@@ -21,6 +21,8 @@ public class Contract {
     private LocalDate checkOutDate;
     private Integer deposit;
     private Integer payment;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @ManyToOne
     @JoinColumn(name = "buildingId", referencedColumnName = "id")
     private Building building;
@@ -36,6 +38,14 @@ public class Contract {
     private List<DetailService> detailServices;
 
     public Contract() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

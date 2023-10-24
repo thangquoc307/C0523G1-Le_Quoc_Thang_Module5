@@ -12,11 +12,21 @@ public class RentType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String typeName;
+    @Column(name = "is_delete",columnDefinition = "integer default 0")
+    private Integer isDelete;
     @JsonBackReference
     @OneToMany(mappedBy = "rentType")
     private List<Building> buildings;
 
     public RentType() {
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public Integer getId() {

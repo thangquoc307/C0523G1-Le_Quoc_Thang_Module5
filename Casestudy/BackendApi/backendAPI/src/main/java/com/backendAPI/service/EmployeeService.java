@@ -25,25 +25,32 @@ public class EmployeeService implements IEmployeeService{
     private IDepartmentRepository departmentRepository;
     @Override
     public List<Employee> getAllEmployee() {
-        return employeeRepository.findAll();
+        return employeeRepository.findAllByIsDeleteIs(0);
     }
 
     @Override
     public void createEmployee(Employee employee) {
+        employee.setIsDelete(0);
         employeeRepository.save(employee);
     }
 
     @Override
     public void editEmployee(Employee employee) {
-        if (employeeRepository.findById(employee.getId()) != null){
-            employeeRepository.save(employee);
+        if (employee != null) {
+            if (employee.getIsDelete() == 0) {
+                employeeRepository.save(employee);
+            }
         }
     }
 
     @Override
     public void deleteEmployeeById(Integer employeeId) {
-        if (employeeRepository.findById(employeeId) != null){
-            employeeRepository.deleteById(employeeId);
+        Employee employee = getEmployeeById(employeeId);
+        if (employee != null) {
+            if (employee.getIsDelete() == 0){
+                employee.setIsDelete(1);
+                employeeRepository.save(employee);
+            }
         }
     }
 
@@ -54,16 +61,16 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public List<Education> getAllEducation() {
-        return educationRepository.findAll();
+        return educationRepository.findAllByIsDeleteIs(0);
     }
 
     @Override
     public List<Position> getAllPosition() {
-        return positionRepository.findAll();
+        return positionRepository.findAllByIsDeleteIs(0);
     }
 
     @Override
     public List<Department> getAllDepartment() {
-        return departmentRepository.findAll();
+        return departmentRepository.findAllByIsDeleteIs(0);
     }
 }

@@ -1,29 +1,13 @@
-import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {customerByIdApi, customerTypeApi, genderApi} from "../../../service/api_connection";
 import * as Yup from "yup";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 
 export default function CustomerEdit(){
     const {id} = useParams();
-    // const customerEditedId = useSelector(state => state.customerEdited.customerEditedId);
-    const [dataEdit, setDataEdit] = useState({
-        id: 1,
-        name: "",
-        birthday: "",
-        idCard: "",
-        phone: "",
-        email: "",
-        address: "",
-        gender: {
-            id: 2
-        },
-        customerType: {
-            id: 2
-        }
-    });
+    const [dataEdit, setDataEdit] = useState();
 
     const [genderList, setGenderList] = useState([]);
     const [customerType, setCustomerType] = useState([]);
@@ -46,51 +30,47 @@ export default function CustomerEdit(){
             .matches(/^.+@.+\..+$/, "Error email format"),
         address: Yup.string()
             .required("Please fill the address"),
-        gender: Yup.string()
-            .required("Please choose Gender"),
-        customerType: Yup.string()
-            .required("Please choose Customer Type"),
-    })
+        gender: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Gender")
+        }),
+        customerType: Yup.object().shape({
+            id: Yup.number().min(1,"Please choose Customer Type")
+        }),
+    });
 
-    // useEffect(async () => {
-    //     try {
-    //         const data = await customerByIdApi(id);
-    //         setDataEdit(data.data);
-    //
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    //     return ;
-    // }, []);
-    useEffect(() => {
-        const dataGender = async () => {
-            try {
-                const data = await genderApi();
-                setGenderList(data.data);
-            } catch (err) {
-                console.log(err);
-            }
+    const getDataEdit = async () => {
+        try {
+            const data = await customerByIdApi(id);
+            setDataEdit(data.data);
+        } catch (err) {
+            console.log(err)
         }
+    }
+    const dataGender = async () => {
+        try {
+            const data = await genderApi();
+            setGenderList(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    const dataType = async () => {
+        try {
+            const data = await customerTypeApi();
+            setCustomerType(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        getDataEdit();
         dataGender();
-    }, []);
-    useEffect(() => {
-        const dataType = async () => {
-            try {
-                const data = await customerTypeApi();
-                setCustomerType(data.data);
-            } catch (err) {
-                console.log(err);
-            }
-        }
         dataType();
-        console.log("ok")
     }, []);
-    const locationHref = (link) => {
-        navigate(link);
-    };
     const handleSubmit = async (values) => {
         const newCustomer = {
-            id: dataEdit.id,
+            id: +dataEdit.id,
             name: values.name,
             birthday: values.birthday,
             idCard: values.idCard,
@@ -98,13 +78,14 @@ export default function CustomerEdit(){
             email: values.email,
             address: values.address,
             gender: {
-                id: values.gender
+                id: values.gender.id
             },
             customerType: {
-                id: values.customerType
+                id: values.customerType.id
             }
         }
         try {
+            console.log(newCustomer)
             const response = await axios.post('http://localhost:8080/api/edit/customer/', newCustomer);
             navigate("/customer");
         } catch (err) {
@@ -112,84 +93,84 @@ export default function CustomerEdit(){
         }
     }
 
-    // if (dataEdit == null) {
-    //     return null;
-    // }
-    return(
-        <div>
-            <h1 className="titleCreateForm">Create New Customer</h1>
-            <Formik
-                initialValues={dataEdit}
-                onSubmit={handleSubmit}
-                validationSchema={validation}>
-                <Form className="formCustomerCreate color1 filler">
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="name">Customer Name</label><br/>
-                        <Field type="text" id="name" name="name" value={dataEdit.name}/><br/>
-                        <ErrorMessage name="name" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="birthday">Customer Birthday</label><br/>
-                        <Field type="date" id="birthday" name="birthday"  value={dataEdit.birthday}/><br/>
-                        <ErrorMessage name="birthday" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="idCard">Citizen Identification</label><br/>
-                        <Field type="text" id="idCard" name="idCard"  value={dataEdit.idCard}/><br/>
-                        <ErrorMessage name="idCard" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="phone">Telephone Number</label><br/>
-                        <Field type="text" id="phone" name="phone"  value={dataEdit.phone}/><br/>
-                        <ErrorMessage name="phone" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="email">Email Address</label><br/>
-                        <Field type="text" id="email" name="email"  value={dataEdit.email}/><br/>
-                        <ErrorMessage name="email" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="address">Customer Address</label><br/>
-                        <Field type="text" id="address" name="address"  value={dataEdit.address}/><br/>
-                        <ErrorMessage name="address" component="small" />
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="gender">Customer Gender</label><br/>
-                        <Field as="select" id="gender" name="gender"  value={dataEdit.gender.id}>
-                            <option value="" label="--select--" selected={true}></option>
-                            {genderList.map((e) => {
-                                return <option value={e.id} label={e.genderName}></option>
-                            })}
-                        </Field>
-                        <ErrorMessage name="gender" component="small" />
-                        <br/>
-                    </div>
-                    <div className="inputCreateCustomer">
-                        <label htmlFor="customerType">Customer Type</label><br/>
-                        <Field as="select" id="customerType" name="customerType" value={dataEdit.customerType.id}>
-                            <option value="" label="--select--" selected={true}></option>
-                            {customerType.map((e) => {
-                                return <option value={e.id} label={e.typeName}></option>
-                            })}
-                        </Field>
-                        <ErrorMessage name="customerType" component="small" />
-                        <br/>
-                    </div>
-
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div className="buttonFormCreate">
+    if (dataEdit == null || genderList.length == 0 || customerType.length == 0) {
+        return null;
+    } else {
+        return (
+            <div>
+                <h1 className="titleCreateForm">Create New Customer</h1>
+                <Formik
+                    initialValues={dataEdit}
+                    onSubmit={handleSubmit}
+                    validationSchema={validation}>
+                    <Form className="formCustomerCreate color1 filler">
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="name">Customer Name</label><br/>
+                            <Field type="text" name="name"/><br/>
+                            <ErrorMessage name="name" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="birthday">Customer Birthday</label><br/>
+                            <Field type="date" name="birthday"/><br/>
+                            <ErrorMessage name="birthday" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="idCard">Citizen Identification</label><br/>
+                            <Field type="text" name="idCard"/><br/>
+                            <ErrorMessage name="idCard" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="phone">Telephone Number</label><br/>
+                            <Field type="text" name="phone"/><br/>
+                            <ErrorMessage name="phone" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="email">Email Address</label><br/>
+                            <Field type="text" id="email" name="email"/><br/>
+                            <ErrorMessage name="email" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="address">Customer Address</label><br/>
+                            <Field type="text" name="address"/><br/>
+                            <ErrorMessage name="address" component="small"/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="gender.id">Customer Gender</label><br/>
+                            <Field as="select" name="gender.id">
+                                <option value="0" label="--select--"></option>
+                                {genderList.map((e) => {
+                                    return <option value={e.id} label={e.genderName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="gender.id" component="small"/>
+                            <br/>
+                        </div>
+                        <div className="inputCreateCustomer">
+                            <label htmlFor="customerType.id">Customer Type</label><br/>
+                            <Field as="select" name="customerType.id">
+                                <option value="0" label="--select--"></option>
+                                {customerType.map((e) => {
+                                    return <option value={e.id} label={e.typeName}></option>
+                                })}
+                            </Field>
+                            <ErrorMessage name="customerType.id" component="small"/>
+                            <br/>
+                        </div>
                         <div></div>
-                        <button className="filler hover color3" type="button"
-                                onClick={() => {locationHref("/customer")}}>Back</button>
-                        <button className="filler hover color4" type="submit">Submit</button>
-                        <Link to="/customer">back</Link>
-                    </div>
-
-                </Form>
-            </Formik>
-
-        </div>
-    )
+                        <div></div>
+                        <div></div>
+                        <div className="buttonFormCreate">
+                            <div></div>
+                            <button className="filler hover color3" type="button"
+                                    onClick={() => {
+                                        navigate("/customer")
+                                    }}>Back
+                            </button>
+                            <button className="filler hover color4" type="submit">Submit</button>
+                        </div>
+                    </Form>
+                </Formik>
+            </div>
+        )
+    }
 }

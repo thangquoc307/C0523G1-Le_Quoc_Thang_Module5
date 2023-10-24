@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class CustomerDto {
+    private Integer id;
     private String name;
     private LocalDate birthday;
     private String idCard;
@@ -20,7 +21,8 @@ public class CustomerDto {
     public CustomerDto() {
     }
 
-    public CustomerDto(String name, LocalDate birthday, String idCard, String phone, String email, String address, Gender gender, CustomerType customerType, List<Contract> contracts) {
+    public CustomerDto(Integer id, String name, LocalDate birthday, String idCard, String phone, String email, String address, Gender gender, CustomerType customerType, List<Contract> contracts) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.idCard = idCard;
@@ -29,6 +31,15 @@ public class CustomerDto {
         this.address = address;
         this.gender = gender;
         this.customerType = customerType;
+        this.contracts = contracts;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
