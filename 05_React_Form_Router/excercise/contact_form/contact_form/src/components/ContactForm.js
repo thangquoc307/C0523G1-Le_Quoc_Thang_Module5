@@ -1,83 +1,39 @@
 import {useState} from "react";
-import {Formik} from "formik";
+import {Formik, Form, Field, ErrorMessage} from "formik";
+import * as Yup from "yup";
 
 export default function ContactForm(){
-    const REGEX = {
-        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-        phone: /^\++[0-9]{10,12}$/
-    };
-    const [form, setForm] = useState({});
-    function handleChange(event) {
-        setForm({
-            ...form, [event.target.name]: event.target.value
-        });
-    }
-    function handleValidate() {
-        const errors = {};
-        if (!form.email) {
-            errors.email = "Email không để trống";
-        } else if (!REGEX.email.test(form.email)) {
-            errors.email = "Email không hợp lệ";
-        }
-        if (!form.phone) {
-            errors.phone = "Số điện thoại không để trống";
-        } else if (!REGEX.phone.test(form.phone)){
-            errors.phone = "Số điện thoại không hợp lệ";
-        }
-        if (!form.name) {
-            errors.name = "Tên không để trống";
-        }
-        return errors;
-    }
-    function handleSubmit(){
+    const validation = Yup.object({
+        email: Yup.string().required("Please fill email")
+            .matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, "Error Format"),
+        phone: Yup.string().required("Please fill the phone")
+            .matches(/^\+?[0-9]{10,12}$/, "Error format")
+    })
+    function handleSubmit(values){
+        console.log(values)
         alert("Add contact successfully!!!");
     }
     return(
         <div>
             <h1>Contact Form</h1>
-            <Formik initialValues={form} onSubmit={handleSubmit} validate={handleValidate}>
-                {({errors, handleSubmit}) => (
-                    <form onSubmit={handleSubmit}>
-                        <div className={`custom-input ${errors.name ? "custom-input-error" : ""}`}>
-                            <label>Name</label>
-                            <input
-                                type={"text"}
-                                name={"name"}
-                                value={form.name || ""}
-                                onChange={handleChange}
-                            />
-                            <p className={'error'}>{errors.name}</p>
-                        </div>
-
-                        <div className={`custom-input ${errors.email ? "custom-input-error" : ""}`}>
+            <Formik
+                initialValues={{email: "", phone: ""}}
+                onSubmit={handleSubmit}
+                validationSchema={validation}>
+                    <Form>
+                        <div className="custom-input">
                             <label>Email</label>
-                            <input
-                                type={"email"}
-                                name={"email"}
-                                value={form.email || ""}
-                                onChange={handleChange}
-                            />
-                            <p className={'error'}>{errors.email}</p>
+                            <Field name="email" type="text"/>
+                            <ErrorMessage name="email" component="small"/>
+                        </div>
+                        <div className="custom-input">
+                            <label>Phone</label>
+                            <Field name="phone" type="text"/>
+                            <ErrorMessage name="phone" component="small"/>
                         </div>
 
-                        <div className={`custom-input ${errors.phone ? "custom-input-error" : ""}`}>
-                            <label>phone</label>
-                            <input
-                                type={"text"}
-                                name={"phone"}
-                                value={form.phone || ""}
-                                onChange={handleChange}
-                            />
-                            <p className={'error'}>{errors.phone}</p>
-                        </div>
-
-                        <div className={'custom-input'}>
-                            <label>Message</label>
-                            <textarea/>
-                        </div>
-                        <button type={"submit"}>Submit</button>
-                    </form>
-                )}
+                        <button type="submit">Submit</button>
+                    </Form>
             </Formik>
         </div>
     )
