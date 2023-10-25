@@ -10,45 +10,45 @@ export default function FacilityEdit() {
     const {id} = useParams();
     const [buildingSelect,setBuildingSelect] = useState(1);
     const [dataEdit, setDataEdit] = useState();
-    // const [validation, setValidation] = useState();
-    const validation = Yup.object({
-        name: Yup.string()
-            .required("Please fill the Name")
-            .matches(/^[A-Z]*( [A-Z]*)+$/, "Error Format"),
-        area: Yup.number()
-            .required("Please fill the Area")
-            .min(70, "Building over than 70m2")
-            .max(3000, "Building less than 3000m2"),
-        price: Yup.number()
-            .required("Please fill the Price")
-            .min(1000000, "Price over than 1,000,000")
-            .max(100000000, "Price less than 100,000,000"),
-        capacity: Yup.number()
-            .required("Please fill the Capacity")
-            .min(2, "Capacity over than 2 persons")
-            .max(10, "Capacity less than 10 person"),
-        img: Yup.string()
-            .required("Please fill the Image Link"),
-        level: (buildingSelect == 1 || buildingSelect == 2) ?
-            Yup.number()
-                .required("Please fill number of Level")
-                .min(1, "Level over than 1")
-                .max(10, "Level less than 10") :
-            Yup.number().notRequired(),
-        poolArea: (buildingSelect == 1) ?
-            Yup.number()
-                .required("Please fill the Pool Area")
-                .min(20, "Pool Area over than 20 m2")
-                .max(1000, "Pool Area less than 1000 m2") :
-            Yup.number().notRequired(),
-        rentType: Yup.object().shape({
-            id : Yup.number().min(1,"Please choose Rent Type")
-        }),
-        roomType: (buildingSelect == 1 || buildingSelect == 2) ?
-            Yup.object().shape({
-                id: Yup.number().min(1,"Please choose Room Type")
-            }) : Yup.object().notRequired(),
-    })
+    const [validation, setValidation] = useState();
+    // const validation = Yup.object({
+    //     name: Yup.string()
+    //         .required("Please fill the Name")
+    //         .matches(/^[A-Z]*( [A-Z]*)+$/, "Error Format"),
+    //     area: Yup.number()
+    //         .required("Please fill the Area")
+    //         .min(70, "Building over than 70m2")
+    //         .max(3000, "Building less than 3000m2"),
+    //     price: Yup.number()
+    //         .required("Please fill the Price")
+    //         .min(1000000, "Price over than 1,000,000")
+    //         .max(100000000, "Price less than 100,000,000"),
+    //     capacity: Yup.number()
+    //         .required("Please fill the Capacity")
+    //         .min(2, "Capacity over than 2 persons")
+    //         .max(10, "Capacity less than 10 person"),
+    //     img: Yup.string()
+    //         .required("Please fill the Image Link"),
+    //     level: (buildingSelect == 1 || buildingSelect == 2) ?
+    //         Yup.number()
+    //             .required("Please fill number of Level")
+    //             .min(1, "Level over than 1")
+    //             .max(10, "Level less than 10") :
+    //         Yup.number().notRequired(),
+    //     poolArea: (buildingSelect == 1) ?
+    //         Yup.number()
+    //             .required("Please fill the Pool Area")
+    //             .min(20, "Pool Area over than 20 m2")
+    //             .max(1000, "Pool Area less than 1000 m2") :
+    //         Yup.number().notRequired(),
+    //     rentType: Yup.object().shape({
+    //         id : Yup.number().min(1,"Please choose Rent Type")
+    //     }),
+    //     roomType: (buildingSelect == 1 || buildingSelect == 2) ?
+    //         Yup.object().shape({
+    //             id: Yup.number().min(1,"Please choose Room Type")
+    //         }) : Yup.object().notRequired(),
+    // })
 
     const [rentTypeList, setRentTypeList] = useState([]);
     const [roomTypeList, setRoomTypeList] = useState([]);
@@ -64,9 +64,8 @@ export default function FacilityEdit() {
             } else {
                 await setBuildingSelect(3);
             }
-            // setValidation(() => {facilityValidation(buildingSelect)});
+            setValidation(() => facilityValidation(buildingSelect));
 
-            // console.log(validation)
         } catch (err) {
             console.log(err);
         }
@@ -101,7 +100,7 @@ export default function FacilityEdit() {
             console.log(err);
         }
     }
-
+    console.log(" vali " +validation)
     if (rentTypeList.length == 0 || roomTypeList.length == 0 || !dataEdit || !validation) {
         return null;
     } else {
