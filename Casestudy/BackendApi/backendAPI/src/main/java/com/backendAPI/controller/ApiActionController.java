@@ -71,10 +71,10 @@ public class ApiActionController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
-    @PostMapping("delete")
-    public ResponseEntity<?> deleteElement(@RequestBody ObjectDelete objectDelete){
-        String type = objectDelete.getObjectType();
-        int id = objectDelete.getId();
+    @DeleteMapping("delete/{type}/{id}")
+    public ResponseEntity<?> deleteElement(
+            @PathVariable String type,
+            @PathVariable Integer id){
         switch (type){
             case "building":
                 buildService.deleteBuilding(id);

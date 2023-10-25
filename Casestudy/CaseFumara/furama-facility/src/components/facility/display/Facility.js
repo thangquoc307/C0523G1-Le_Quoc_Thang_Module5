@@ -53,7 +53,8 @@ export default function Facility() {
                                         <h4>{e.name}</h4>
                                         <p>Area: {e.area}m<sup>2</sup></p>
                                     </div>
-                                    <div className="button hover color3">Edit</div>
+                                    <div className="button hover color3"
+                                        onClick={() => navigate("/building/edit/" + e.id)}>Edit</div>
                                     <div className="button hover color4"
                                          onClick={() => modalConfirm(e.name, "confirm", e.id)}
                                     >Delete</div>
@@ -62,7 +63,7 @@ export default function Facility() {
                         )
                     })
                 }
-                <div className="add buildDiv color1 filler" onClick={() => locationHref("/buiding/create")}>
+                <div className="add buildDiv color1 filler" onClick={() => locationHref("/building/create")}>
                     <div className="addBuild"></div>
                     <div className="addText">Add new Building</div>
                 </div>

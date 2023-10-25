@@ -5,13 +5,8 @@ export default function Modal({setIsModalOpen,modalContent,modalType,objectId}){
         setIsModalOpen(false);
     }
     const handleConfirm = async () => {
-        const objectDelete = {
-            id: objectId,
-            objectType: modalType
-        }
         try {
-            console.log(objectDelete)
-            const reponse = await axios.post('http://localhost:8080/api/delete/', objectDelete);
+            const reponse = await axios.delete('http://localhost:8080/api/delete/' + modalType + '/' + objectId);
         } catch (err) {
             console.log(err);
         }
@@ -25,5 +20,4 @@ export default function Modal({setIsModalOpen,modalContent,modalType,objectId}){
              <div onClick={handleConfirm} className="button hover buttonModalConfirm color4">Confirm</div>
         </div>
      );
-
 }

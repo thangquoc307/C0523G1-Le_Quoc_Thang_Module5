@@ -5,6 +5,11 @@
     grid-template-rows: 70px 1fr 80px;
     padding: 0;
 }
+.formBuildEdit{
+    width: 80%;
+    margin: 2% 10%;
+    padding: 0 0 40px 0;
+}
 .formBuildCreateHeader{
     display: grid;
     border-top-left-radius: 30px;

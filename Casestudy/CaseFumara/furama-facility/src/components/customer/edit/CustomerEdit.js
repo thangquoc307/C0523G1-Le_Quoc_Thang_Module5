@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {customerByIdApi, customerTypeApi, genderApi} from "../../../service/api_connection";
-import * as Yup from "yup";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
+import {customerValidation} from "../../../service/Validation";
 
 export default function CustomerEdit(){
     const {id} = useParams();
@@ -13,31 +13,7 @@ export default function CustomerEdit(){
     const [customerType, setCustomerType] = useState([]);
     const navigate = useNavigate();
 
-    const validation = Yup.object({
-        name: Yup.string()
-            .required("Please fill the Name")
-            .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)+$/, "Error Format"),
-        birthday: Yup.date()
-            .required("Please choose the Birthday"),
-        idCard: Yup.string()
-            .required("Please fill the Id Card")
-            .matches(/^[0-9]{9}$/, "Id Card has 9 number"),
-        phone: Yup.string()
-            .required("Please fill the phone number")
-            .matches(/^0[0-9]{9}$/, "The phone start by 0 and has 10 number"),
-        email: Yup.string()
-            .required("Please fill the Email")
-            .matches(/^.+@.+\..+$/, "Error email format"),
-        address: Yup.string()
-            .required("Please fill the address"),
-        gender: Yup.object().shape({
-            id: Yup.number().min(1,"Please choose Gender")
-        }),
-        customerType: Yup.object().shape({
-            id: Yup.number().min(1,"Please choose Customer Type")
-        }),
-    });
-
+    const validation = customerValidation;
     const getDataEdit = async () => {
         try {
             const data = await customerByIdApi(id);

@@ -1,33 +1,76 @@
-import "./FacilityCreate.css";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Formik, Form, Field, ErrorMessage} from "formik";
-import {useNavigate} from "react-router-dom";
-import {rentTypeApi, roomTypeApi} from "../../../service/api_connection";
-import axios from "axios";
 import {facilityValidation} from "../../../service/Validation";
-export default function FacilityCreate(){
-    const [buildingSelect, setBuildingSelect] = useState(1);
-    const [validation, setValidation] = useState(() => facilityValidation(1));
+import {buildingByIdApi, rentTypeApi, roomTypeApi} from "../../../service/api_connection";
+import axios from "axios";
+import {ErrorMessage, Field, Form, Formik} from "formik";
+import * as Yup from "yup";
+
+export default function FacilityEdit() {
+    const {id} = useParams();
+    const [buildingSelect,setBuildingSelect] = useState(1);
+    const [dataEdit, setDataEdit] = useState();
+    // const [validation, setValidation] = useState();
+    const validation = Yup.object({
+        name: Yup.string()
+            .required("Please fill the Name")
+            .matches(/^[A-Z]*( [A-Z]*)+$/, "Error Format"),
+        area: Yup.number()
+            .required("Please fill the Area")
+            .min(70, "Building over than 70m2")
+            .max(3000, "Building less than 3000m2"),
+        price: Yup.number()
+            .required("Please fill the Price")
+            .min(1000000, "Price over than 1,000,000")
+            .max(100000000, "Price less than 100,000,000"),
+        capacity: Yup.number()
+            .required("Please fill the Capacity")
+            .min(2, "Capacity over than 2 persons")
+            .max(10, "Capacity less than 10 person"),
+        img: Yup.string()
+            .required("Please fill the Image Link"),
+        level: (buildingSelect == 1 || buildingSelect == 2) ?
+            Yup.number()
+                .required("Please fill number of Level")
+                .min(1, "Level over than 1")
+                .max(10, "Level less than 10") :
+            Yup.number().notRequired(),
+        poolArea: (buildingSelect == 1) ?
+            Yup.number()
+                .required("Please fill the Pool Area")
+                .min(20, "Pool Area over than 20 m2")
+                .max(1000, "Pool Area less than 1000 m2") :
+            Yup.number().notRequired(),
+        rentType: Yup.object().shape({
+            id : Yup.number().min(1,"Please choose Rent Type")
+        }),
+        roomType: (buildingSelect == 1 || buildingSelect == 2) ?
+            Yup.object().shape({
+                id: Yup.number().min(1,"Please choose Room Type")
+            }) : Yup.object().notRequired(),
+    })
+
     const [rentTypeList, setRentTypeList] = useState([]);
     const [roomTypeList, setRoomTypeList] = useState([]);
     const navigate = useNavigate();
-    const [formTitle,setFormTitle] = useState("Create New Villa");
+    const getDataEdit = async () => {
+        try {
+            const data = await buildingByIdApi(id);
+            await setDataEdit(data.data);
+            if (data.data.poolArea) {
+                await setBuildingSelect(1);
+            } else if (data.data.level) {
+                await setBuildingSelect(2);
+            } else {
+                await setBuildingSelect(3);
+            }
+            // setValidation(() => {facilityValidation(buildingSelect)});
 
-    const initialValue = {
-        name: "",
-        area: 0,
-        price: 0,
-        capacity: 0,
-        img: "",
-        level: 0,
-        poolArea: 0,
-        rentType: {
-            id: 0
-        },
-        roomType: {
-            id: 0
+            // console.log(validation)
+        } catch (err) {
+            console.log(err);
         }
-    };
+    }
     const dataRentType = async () => {
         try {
             const data = await rentTypeApi();
@@ -47,113 +90,33 @@ export default function FacilityCreate(){
     useEffect(() => {
         dataRentType();
         dataRoomType();
+        getDataEdit();
     },[]);
-    const handleForm = (action) => {
-        let villaDiv = document.getElementById("villaDiv");
-        let houseDiv = document.getElementById("houseDiv");
-        let roomDiv = document.getElementById("roomDiv");
-        switch (action) {
-            case "villa":
-                villaDiv.className = "color1";
-                houseDiv.className = "hover";
-                roomDiv.className = "hover";
-
-                setValidation(() => facilityValidation(1));
-                setFormTitle("Create New Villa");
-                setBuildingSelect(1);
-
-                break;
-            case "house":
-                villaDiv.className = "hover";
-                houseDiv.className = "color1";
-                roomDiv.className = "hover";
-
-                setValidation(() => facilityValidation(2));
-                setFormTitle("Create New House");
-                setBuildingSelect(2);
-                break;
-            case "room":
-                villaDiv.className = "hover";
-                houseDiv.className = "hover";
-                roomDiv.className = "color1";
-
-                setValidation(() => facilityValidation(3));
-                setFormTitle("Create New Room");
-                setBuildingSelect(3);
-                break;
-        }
-    }
 
     const handleSubmit = async (values) => {
-        let newBuilding = {}
-        switch (buildingSelect){
-            case 1:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    level: values.level,
-                    poolArea: values.poolArea,
-                    rentType: {
-                        id: +values.rentType
-                    },
-                    roomType: {
-                        id: +values.roomType
-                    }
-                }
-                break;
-            case 2:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    level: values.level,
-                    rentType: {
-                        id: +values.rentType
-                    }
-                }
-                break;
-            case 3:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    rentType: {
-                        id: +values.rentType
-                    },
-                }
-                break;
-        }
         try {
-            console.log(newBuilding)
-            const reponse = await axios.post('http://localhost:8080/api/create/building/', newBuilding);
+            const reponse = await axios.patch('http://localhost:8080/api/edit/building/', values);
             navigate("/");
         } catch (err) {
             console.log(err);
         }
     }
-    if (roomTypeList.length == 0 || rentTypeList.length == 0) {
+
+    if (rentTypeList.length == 0 || roomTypeList.length == 0 || !dataEdit || !validation) {
         return null;
     } else {
+        console.log(validation)
+        console.log(rentTypeList)
+        console.log(roomTypeList)
+        console.log(dataEdit)
         return (
             <div>
-                <h1 className="titleCreateForm">{formTitle}</h1>
+                <h1 className="titleCreateForm">Edit Building</h1>
                 <Formik
-                    initialValues={initialValue}
+                    initialValues={dataEdit}
                     onSubmit={handleSubmit}
                     validationSchema={validation}>
-                    <Form className="formBuildCreate color1 filler">
-                        <div className="formBuildCreateHeader color3">
-                            <div id="villaDiv" className="color1" onClick={() => handleForm("villa")}>Villa</div>
-                            <div id="houseDiv" className="hover" onClick={() => handleForm("house")}>House</div>
-                            <div id="roomDiv" className="hover" onClick={() => handleForm("room")}>Room</div>
-                        </div>
+                    <Form className="formBuildEdit color1 filler">
                         <div className="formInputBuilding">
                             <div className="inputCreateBuilding">
                                 <label htmlFor="name">Building Name</label><br/>

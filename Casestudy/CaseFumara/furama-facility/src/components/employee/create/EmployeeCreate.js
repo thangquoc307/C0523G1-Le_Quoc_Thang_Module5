@@ -1,42 +1,15 @@
-import * as Yup from 'yup'
 import {Formik, Form, Field, ErrorMessage} from "formik";
 import {useEffect, useState} from "react";
 import {departmentApi, educationApi, positionApi} from "../../../service/api_connection";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {employeeValidation} from "../../../service/Validation";
 export default function EmployeeCreate(){
     const [education, setEducation] = useState([]);
     const [position, setPosition] = useState([]);
     const [department, setDepartment] = useState([]);
     const navigate = useNavigate();
-    const validation = Yup.object({
-        name: Yup.string()
-            .required("Please fill the Name")
-            .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)+$/, "Error Format"),
-        birthday: Yup.date()
-            .required("Please choose the Birthday"),
-        idCard: Yup.string()
-            .required("Please fill the Id Card")
-            .matches(/^[0-9]{9}$/, "Id Card has 9 number"),
-        phone: Yup.string()
-            .required("Please fill the phone number")
-            .matches(/^0[0-9]{9}$/, "The phone start by 0 and has 10 number"),
-        email: Yup.string()
-            .required("Please fill the Email")
-            .matches(/^.+@.+\..+$/, "Error email format"),
-        salary: Yup.number()
-            .required("Please enter the Salary")
-            .min(5000000, "The salary over than 5,000,000"),
-        education: Yup.object().shape({
-            id: Yup.number().min(1,"Please choose Education")
-        }),
-        position: Yup.object().shape({
-            id: Yup.number().min(1,"Please choose Position")
-        }),
-        department: Yup.object().shape({
-            id: Yup.number().min(1,"Please choose Department")
-        })
-    })
+    const validation = employeeValidation;
     const dataEducation = async () => {
         try {
             const data = await educationApi();
