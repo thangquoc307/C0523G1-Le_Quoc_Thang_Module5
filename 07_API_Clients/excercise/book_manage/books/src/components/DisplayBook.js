@@ -2,26 +2,36 @@ import {useEffect, useState} from "react";
 import {deleteBook, getAll} from "../service/databaseApi";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import Modal from 'react-modal';
 
 export default function DisplayBook() {
     const [books, setBooks] = useState([]);
     const navigate = useNavigate();
-    let count = 0;
+    const [idDelete, setDeleteId] = useState(-1);
     const alertSuccess = () => toast.success("Delete success!!!");
     const getBook = async () => {
         const reponse = await getAll();
         setBooks(reponse);
         console.log(reponse)
     };
-    const handleDelete = async (idDel) => {
-        const reponse = await deleteBook(idDel);
+    const handleDelete = async () => {
+        const reponse = await deleteBook(idDelete);
+        setDeleteId(-1)
+        setModalIsOpen(false);
         alertSuccess();
-        count++;
     }
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const openModal = (id) => {
+        setModalIsOpen(true);
+        setDeleteId(id);
+    }
+    const closeModal = () => {
+        setModalIsOpen(false);
+    }
     useEffect(() => {
         getBook();
-    },[count])
+    },[idDelete])
     if (books.length == 0) {
         return  null;
     } else {
@@ -44,15 +54,25 @@ export default function DisplayBook() {
                             <td>{e.title}</td>
                             <td>{e.quantity}</td>
                             <td>
+                                <button onClick={() => openModal(e.id)}>delete</button>
                                 <button onClick={() => navigate("/edit/book/" + e.id)}>edit</button>
-                                <button onClick={() => handleDelete(e.id)}>delete</button>
                             </td>
                         </tr>
                         )
                     })}
                     </tbody>
                 </table>
-
+                <div>
+                    <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={closeModal}
+                        contentLabel="Delete"
+                    >
+                        <h2>Are you sure about delete</h2>
+                        <button onClick={closeModal}>Close</button>
+                        <button onClick={handleDelete}>Delete</button>
+                    </Modal>
+                </div>
             </>
         )
     }

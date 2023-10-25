@@ -1,16 +1,6 @@
 {
   "books": [
     {
-      "id": 1,
-      "title": "Sách thứ nhất",
-      "quantity": 100
-    },
-    {
-      "id": 3,
-      "title": "Sách thứ ba",
-      "quantity": 200
-    },
-    {
       "id": 4,
       "title": "Sách thứ tư",
       "quantity": 150
