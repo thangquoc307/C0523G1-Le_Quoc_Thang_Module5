@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -41,6 +42,7 @@ public class ApiDisplayController {
         if (buildingList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            Collections.reverse(buildingList);
             return new ResponseEntity<>(buildingList, HttpStatus.OK);
         }
     }
@@ -77,6 +79,25 @@ public class ApiDisplayController {
         if (customerList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            Collections.reverse(customerList);
+            return new ResponseEntity<>(customerList, HttpStatus.OK);
+        }
+    }
+    @GetMapping("customer/search")
+    public ResponseEntity<List<Customer>> getCustomerSearchList(
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(required = false, defaultValue = "0") Integer type){
+        List<Customer> customerList;
+        if (type == 0) {
+            customerList = customerService.searchCustomer(name);
+        } else {
+            customerList = customerService.searchCustomerAndType(name, type);
+        }
+
+        if (customerList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            Collections.reverse(customerList);
             return new ResponseEntity<>(customerList, HttpStatus.OK);
         }
     }
@@ -122,6 +143,7 @@ public class ApiDisplayController {
         if (employeeList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            Collections.reverse(employeeList);
             return new ResponseEntity<>(employeeList, HttpStatus.OK);
         }
     }

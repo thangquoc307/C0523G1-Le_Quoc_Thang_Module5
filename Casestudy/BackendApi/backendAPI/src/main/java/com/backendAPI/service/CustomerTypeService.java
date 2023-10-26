@@ -23,6 +23,15 @@ public class CustomerTypeService implements ICustomerService {
     public List<Customer> getAllCustomer() {
         return customerRepository.findAllByIsDeleteIs(0);
     }
+    @Override
+    public List<Customer> searchCustomer(String name) {
+        return customerRepository.findAllByIsDeleteIsAndNameContains(0, name);
+    }
+
+    @Override
+    public List<Customer> searchCustomerAndType(String name, Integer type) {
+        return customerRepository.findAllByIsDeleteIsAndNameContainsAndCustomerType_Id(0, name, type);
+    }
 
     @Override
     public void createCustomer(Customer customer) {

@@ -49,3 +49,26 @@
 #customerTable td{
     padding: 0 10px;
 }
+.SearchInput{
+    width: 90%;
+    height: 50%;
+    margin: 5%;
+    padding: 0 20px;
+    border: #51504B 1px solid;
+    font-size: 16px;
+}
+.buttonOption{
+    padding: 0 3% 20px 3%;
+    width: 96%;
+    display: grid;
+    grid-template-columns: 1fr repeat(2, 300px);
+}
+.SelectInput{
+    width: 90%;
+    margin-left: 10%;
+    height: 50%;
+    margin-top: 5%;
+    border: #51504B 1px solid;
+    padding: 0 20px;
+    font-size: 16px;
+}

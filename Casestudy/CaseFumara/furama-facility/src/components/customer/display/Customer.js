@@ -1,6 +1,6 @@
 import "./Customer.css"
 import {useEffect, useState} from "react";
-import {customerApi} from "../../../service/api_connection";
+import {customerSearchApi, customerTypeApi} from "../../../service/api_connection";
 import Modal from "../../modal/Modal";
 import {standardDay, standardPhone} from "../../../service/standard_data";
 import {useNavigate} from "react-router-dom";
@@ -11,18 +11,30 @@ export default function Customer() {
     const [customerId, setCustomerId] = useState(-1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [searchName, setSearchName] = useState("");
+    const [customerType, setCustomerType] = useState();
+    const [customerTypeSelect, setCustomerTypeSelect] = useState(0);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await customerApi();
-                setCustomerList(data.data);
-            } catch (err) {
-                console.log(err);
-            }
+    const fetchData = async () => {
+        try {
+            const data = await customerSearchApi(searchName, customerTypeSelect);
+            setCustomerList(data.data);
+        } catch (err) {
+            console.log(err);
         }
+    }
+    const getCustomerType = async () => {
+        try {
+            const data = await customerTypeApi();
+            setCustomerType(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    useEffect(() => {
+        getCustomerType();
         fetchData();
-    },[isModalOpen]);
+    },[isModalOpen, searchName, customerTypeSelect]);
     const modalConfirm = (name, content, id) => {
         setCustomerId(id);
         setModalType("customer");
@@ -46,8 +58,25 @@ export default function Customer() {
                     objectId={customerId}/>
             }
             <div>
-                <div className="createNew color3 hover filler"
-                    onClick={() => locationHref("/customer/create")}>+ Customer</div>
+                <div className="buttonOption">
+                    <div className="createNew color3 hover filler"
+                         onClick={() => locationHref("/customer/create")}>+ Customer</div>
+
+                    <input className="SearchInput filler"
+                           placeholder="Enter name for search"
+                           onChange={(e) => {setSearchName(e.target.value)}}/>
+
+                    <select onChange={(e) => {setCustomerTypeSelect(e.target.value)}} className="filler SelectInput">
+                        <option value="0">--select customer type--</option>
+                        {customerType &&
+                            customerType.map((e) => {
+                            return (
+                                <option value={e.id}>{e.typeName}</option>
+                            )
+                        })}
+                    </select>
+                </div>
+
                 <table id="customerTable" className="color1 filler">
                     <thead>
                     <tr>
@@ -65,6 +94,7 @@ export default function Customer() {
                     </thead>
                     <tbody>
                     {
+                        customerList &&
                         customerList.map((e,index) => {
                             return(
                                 <tr key={e.id}>

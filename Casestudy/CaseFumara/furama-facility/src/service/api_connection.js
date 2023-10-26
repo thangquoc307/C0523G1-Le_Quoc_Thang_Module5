@@ -41,7 +41,15 @@ export const serviceApi = async () => {
 }
 export const customerApi = async () => {
     try {
-        const response = await axios.get("http://localhost:8080/api/customer/");
+        const response = await axios.get("http://localhost:8080/api/customer");
+        return response;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const customerSearchApi = async (searchName, type) => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/customer/search?name=" + searchName + "&type=" + type);
         return response;
     } catch (err) {
         console.log(err);

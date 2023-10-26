@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
-import {buildingApi, contractByIdApi, customerApi, customerByIdApi, employeeApi} from "../../../service/api_connection";
+import {buildingApi, contractByIdApi, customerApi, employeeApi} from "../../../service/api_connection";
 import {useNavigate, useParams} from "react-router-dom";
-import * as Yup from "yup";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {contractValidation} from "../../../service/Validation";
@@ -16,6 +15,7 @@ export default function ContractEdit(){
     const getDataEdit = async () => {
         try {
             const data = await contractByIdApi(id);
+            console.log(data)
             setDataEdit(data.data);
         } catch (err) {
             console.log(err)
@@ -53,7 +53,6 @@ export default function ContractEdit(){
         }
     }
     if (buildingList.length == 0 || customerList.length == 0 || employeeList.length == 0 || dataEdit == null){
-        console.log(1)
         return null;
     } else {
         return (
