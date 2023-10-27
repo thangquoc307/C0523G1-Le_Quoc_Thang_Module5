@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {contractValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 export default function ContractEdit(){
     const {id} = useParams();
     const [dataEdit, setDataEdit] = useState();
@@ -47,9 +48,11 @@ export default function ContractEdit(){
     const handleSubmit = async (values) => {
         try {
             const response = await axios.patch('http://localhost:8080/api/edit/contract/', values);
+            toast.success("Edit the Contract Success")
             navigate("/contract");
         } catch (err) {
             console.log(err);
+            toast.error("Edit the Contract Fail")
         }
     }
     if (buildingList.length == 0 || customerList.length == 0 || employeeList.length == 0 || dataEdit == null){

@@ -14,11 +14,15 @@ export default function Customer() {
     const [searchName, setSearchName] = useState("");
     const [customerType, setCustomerType] = useState();
     const [customerTypeSelect, setCustomerTypeSelect] = useState(0);
+    const [page, setPage] = useState(0);
+    const [totalPage, setTotalPage] = useState();
 
     const fetchData = async () => {
+        console.log(page)
         try {
-            const data = await customerSearchApi(searchName, customerTypeSelect);
-            setCustomerList(data.data);
+            const data = await customerSearchApi(searchName, customerTypeSelect, page);
+            setCustomerList(data.data.content);
+            setTotalPage(data.data.totalPages);
         } catch (err) {
             console.log(err);
         }
@@ -34,7 +38,7 @@ export default function Customer() {
     useEffect(() => {
         getCustomerType();
         fetchData();
-    },[isModalOpen, searchName, customerTypeSelect]);
+    },[isModalOpen, searchName, customerTypeSelect, page]);
     const modalConfirm = (name, content, id) => {
         setCustomerId(id);
         setModalType("customer");
@@ -64,9 +68,15 @@ export default function Customer() {
 
                     <input className="SearchInput filler"
                            placeholder="Enter name for search"
-                           onChange={(e) => {setSearchName(e.target.value)}}/>
+                           onChange={(e) => {
+                               setSearchName(e.target.value);
+                               setPage(0);
+                           }}/>
 
-                    <select onChange={(e) => {setCustomerTypeSelect(e.target.value)}} className="filler SelectInput">
+                    <select onChange={(e) => {
+                        setCustomerTypeSelect(e.target.value);
+                        setPage(0);
+                    }} className="filler SelectInput">
                         <option value="0">--select customer type--</option>
                         {customerType &&
                             customerType.map((e) => {
@@ -94,7 +104,7 @@ export default function Customer() {
                     </thead>
                     <tbody>
                     {
-                        customerList &&
+                        customerList ?
                         customerList.map((e,index) => {
                             return(
                                 <tr key={e.id}>
@@ -116,11 +126,23 @@ export default function Customer() {
                                     </td>
                                 </tr>
                             )
-                        })
+                        }) : <tr><td colSpan="10" className="color1"><h1>No data matching-- \(_ _!!)/ --hiu hiu</h1></td></tr>
                     }
                     </tbody>
                 </table>
             </div>
+
+            {totalPage &&
+                <div className="page">
+                    {page != 0 &&
+                        <div onClick={() => {setPage(page - 1)}}
+                             className="page-button color3 filler hover">Previos</div>}
+                    <div className="page-display">{(page + 1) + " / " + totalPage}</div>
+                    {page != totalPage - 1 &&
+                        <div onClick={() => {setPage(page + 1)}}
+                            className="page-button color3 filler hover">Next</div>}
+                </div>
+            }
         </>
     )
 

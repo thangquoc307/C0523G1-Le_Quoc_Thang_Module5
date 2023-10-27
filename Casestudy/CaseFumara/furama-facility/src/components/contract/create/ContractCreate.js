@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {buildingApi, customerApi, employeeApi} from "../../../service/api_connection";
 import {useNavigate} from "react-router-dom";
-import * as Yup from "yup";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {contractValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 
 export default function ContractCreate(){
 
@@ -39,11 +39,12 @@ export default function ContractCreate(){
 
     const handleSubmit = async (values) => {
         try {
-            console.log(values);
             const response = await axios.post('http://localhost:8080/api/create/contract/', values);
+            toast.success("Create New Contract Success");
             navigate("/contract");
         } catch (err) {
             console.log(err);
+            toast.error("Create New Contract Fail");
         }
     }
 

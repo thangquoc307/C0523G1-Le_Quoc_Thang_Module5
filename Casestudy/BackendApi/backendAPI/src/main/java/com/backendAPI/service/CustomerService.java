@@ -7,12 +7,14 @@ import com.backendAPI.repository.ICustomerRepository;
 import com.backendAPI.repository.ICustomerTypeRepository;
 import com.backendAPI.repository.IGenderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 @Service
-public class CustomerTypeService implements ICustomerService {
+public class CustomerService implements ICustomerService {
     @Autowired
     private ICustomerRepository customerRepository;
     @Autowired
@@ -24,13 +26,13 @@ public class CustomerTypeService implements ICustomerService {
         return customerRepository.findAllByIsDeleteIs(0);
     }
     @Override
-    public List<Customer> searchCustomer(String name) {
-        return customerRepository.findAllByIsDeleteIsAndNameContains(0, name);
+    public Page<Customer> searchCustomer(String name, Pageable pageable) {
+        return customerRepository.findAllByIsDeleteIsAndNameContains(pageable,0, name);
     }
 
     @Override
-    public List<Customer> searchCustomerAndType(String name, Integer type) {
-        return customerRepository.findAllByIsDeleteIsAndNameContainsAndCustomerType_Id(0, name, type);
+    public Page<Customer> searchCustomerAndTypePageable(String name, Integer type, Pageable pageable) {
+        return customerRepository.findAllByIsDeleteIsAndNameContainsAndCustomerType_Id(pageable, 0, name, type);
     }
 
     @Override

@@ -5,6 +5,7 @@ import {buildingByIdApi, rentTypeApi, roomTypeApi} from "../../../service/api_co
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import * as Yup from "yup";
+import {toast} from "react-toastify";
 
 export default function FacilityEdit() {
     const {id} = useParams();
@@ -95,8 +96,10 @@ export default function FacilityEdit() {
     const handleSubmit = async (values) => {
         try {
             const reponse = await axios.patch('http://localhost:8080/api/edit/building/', values);
+            toast.success("Edit the Building Success");
             navigate("/");
         } catch (err) {
+            toast.error("Edit the Building Fail");
             console.log(err);
         }
     }

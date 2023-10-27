@@ -17,11 +17,16 @@ import com.backendAPI.service.IContractService;
 import com.backendAPI.service.ICustomerService;
 import com.backendAPI.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @CrossOrigin("*")
@@ -76,24 +81,6 @@ public class ApiDisplayController {
     @GetMapping("customer")
     public ResponseEntity<List<Customer>> getCustomerList(){
         List<Customer> customerList = customerService.getAllCustomer();
-        if (customerList.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            Collections.reverse(customerList);
-            return new ResponseEntity<>(customerList, HttpStatus.OK);
-        }
-    }
-    @GetMapping("customer/search")
-    public ResponseEntity<List<Customer>> getCustomerSearchList(
-            @RequestParam(required = false, defaultValue = "") String name,
-            @RequestParam(required = false, defaultValue = "0") Integer type){
-        List<Customer> customerList;
-        if (type == 0) {
-            customerList = customerService.searchCustomer(name);
-        } else {
-            customerList = customerService.searchCustomerAndType(name, type);
-        }
-
         if (customerList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -162,6 +149,12 @@ public class ApiDisplayController {
         if (contractList.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            Collections.sort(contractList, new Comparator<Contract>() {
+                @Override
+                public int compare(Contract o1, Contract o2) {
+                    return o1.getCheckInDate().isBefore(o2.getCheckInDate()) ? 1 : -1;
+                }
+            });
             return new ResponseEntity<>(contractList, HttpStatus.OK);
         }
     }
@@ -199,6 +192,25 @@ public class ApiDisplayController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(contract, HttpStatus.OK);
+        }
+    }
+    @GetMapping("customer/search")
+    public ResponseEntity<Page<Customer>> getCustomerSearchListPageable(
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(required = false, defaultValue = "0") Integer type,
+            @RequestParam(required = false, defaultValue = "0") Integer page){
+        Page<Customer> customerList;
+        Pageable pageable = (Pageable) PageRequest.of(page, 5, Sort.by("id").descending());
+        if (type == 0) {
+            customerList = customerService.searchCustomer(name, pageable);
+        } else {
+            customerList = customerService.searchCustomerAndTypePageable(name, type, pageable);
+        }
+
+        if (customerList.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(customerList, HttpStatus.OK);
         }
     }
 }

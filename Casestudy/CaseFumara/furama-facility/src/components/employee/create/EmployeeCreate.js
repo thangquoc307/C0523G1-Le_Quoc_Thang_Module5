@@ -4,6 +4,7 @@ import {departmentApi, educationApi, positionApi} from "../../../service/api_con
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {employeeValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 export default function EmployeeCreate(){
     const [education, setEducation] = useState([]);
     const [position, setPosition] = useState([]);
@@ -44,8 +45,10 @@ export default function EmployeeCreate(){
     const handleSubmit = async (values) => {
         try {
             const response = await axios.post('http://localhost:8080/api/create/employee/', values);
+            toast.success("Create New Employee Success");
             navigate("/employee");
         } catch (err) {
+            toast.error("Create New Employee Fail");
             console.log(err);
         }
     }

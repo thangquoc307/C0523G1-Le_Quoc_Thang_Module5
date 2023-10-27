@@ -5,6 +5,7 @@ import {customerTypeApi, genderApi} from "../../../service/api_connection";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {customerValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 export default function CustomerCreate(){
     const [genderList, setGenderList] = useState([]);
     const [customerType, setCustomerType] = useState([]);
@@ -36,9 +37,11 @@ export default function CustomerCreate(){
     const handleSubmit = async (values) => {
         try {
             const response = await axios.post('http://localhost:8080/api/create/customer/', values);
+            toast.success("Create New Customer Success");
             navigate("/customer");
         } catch (err) {
             console.log(err);
+            toast.error("Create New Customer Fail");
         }
     }
     const initialValue = {

@@ -50,7 +50,16 @@ export const customerValidation = Yup.object({
         .required("Please fill the Name")
         .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)+$/, "Error Format"),
     birthday: Yup.date()
-        .required("Please choose the Birthday"),
+        .required("Please choose the Birthday")
+        .test({
+            test: (date) => {
+                let now = new Date();
+                let age = new Date(date);
+                age.setFullYear(age.getFullYear() + 18);
+                return age <= now;
+            },
+            message: "Age other than 18 years old"
+        }),
     idCard: Yup.string()
         .required("Please fill the Id Card")
         .matches(/^[0-9]{9}$/, "Id Card has 9 number"),
@@ -74,7 +83,16 @@ export const employeeValidation = Yup.object({
         .required("Please fill the Name")
         .matches(/^[A-Z][a-z]*( [A-Z][a-z]*)+$/, "Error Format"),
     birthday: Yup.date()
-        .required("Please choose the Birthday"),
+        .required("Please choose the Birthday")
+        .test({
+            test: (date) => {
+                let now = new Date();
+                let age = new Date(date);
+                age.setFullYear(age.getFullYear() + 18);
+                return age <= now;
+            },
+            message: "Age other than 18 years old"
+        }),
     idCard: Yup.string()
         .required("Please fill the Id Card")
         .matches(/^[0-9]{9}$/, "Id Card has 9 number"),

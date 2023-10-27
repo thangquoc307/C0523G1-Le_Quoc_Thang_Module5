@@ -4,6 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
 import {customerValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 
 export default function CustomerEdit(){
     const {id} = useParams();
@@ -47,8 +48,10 @@ export default function CustomerEdit(){
     const handleSubmit = async (values) => {
         try {
             const response = await axios.patch('http://localhost:8080/api/edit/customer/', values);
+            toast.success("Edit the Customer Success");
             navigate("/customer");
         } catch (err) {
+            toast.error("Edit the Customer Fail");
             console.log(err);
         }
     }

@@ -47,9 +47,9 @@ export const customerApi = async () => {
         console.log(err);
     }
 }
-export const customerSearchApi = async (searchName, type) => {
+export const customerSearchApi = async (searchName, type, page) => {
     try {
-        const response = await axios.get("http://localhost:8080/api/customer/search?name=" + searchName + "&type=" + type);
+        const response = await axios.get("http://localhost:8080/api/customer/search?name=" + searchName + "&type=" + type + "&page=" + page);
         return response;
     } catch (err) {
         console.log(err);

@@ -9,6 +9,7 @@ import {
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 import {employeeValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 
 export default function EmployeeEdit({}){
     const {id} = useParams();
@@ -63,8 +64,10 @@ export default function EmployeeEdit({}){
     const handleSubmit = async (values) => {
         try {
             const response = await axios.patch('http://localhost:8080/api/edit/employee/', values);
+            toast.success("Edit the Employee Success");
             navigate("/employee");
         } catch (err) {
+            toast.error("Edit the Employee Fail");
             console.log(err);
         }
     }

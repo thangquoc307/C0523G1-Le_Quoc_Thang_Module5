@@ -16,7 +16,8 @@ import Contract from "./components/contract/display/Contract";
 import ContractEdit from "./components/contract/edit/ContractEdit";
 import ContractCreate from "./components/contract/create/ContractCreate";
 import FacilityEdit from "./components/facility/edit/FacilityEdit";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
           <div id="body" className="color2">
@@ -27,6 +28,7 @@ function App() {
                   <Route path="/customer/*" element={<HeaderCustomer/>}/>
                   <Route path="/contract/*" element={<HeaderContract/>}/>
               </Routes>
+              <ToastContainer position="bottom-left"/>
               <Routes>
                   <Route path="/" element={<Facility/>}/>
                   <Route path="/employee" element={<Employee/>}/>

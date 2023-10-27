@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {rentTypeApi, roomTypeApi} from "../../../service/api_connection";
 import axios from "axios";
 import {facilityValidation} from "../../../service/Validation";
+import {toast} from "react-toastify";
 export default function FacilityCreate(){
     const [buildingSelect, setBuildingSelect] = useState(1);
     const [validation, setValidation] = useState(() => facilityValidation(1));
@@ -131,10 +132,11 @@ export default function FacilityCreate(){
                 break;
         }
         try {
-            console.log(newBuilding)
             const reponse = await axios.post('http://localhost:8080/api/create/building/', newBuilding);
+            toast.success("Create New Building Success");
             navigate("/");
         } catch (err) {
+            toast.error("Create New Building Fail");
             console.log(err);
         }
     }

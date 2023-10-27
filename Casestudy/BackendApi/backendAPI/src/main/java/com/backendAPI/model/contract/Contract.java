@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "contracts")
@@ -127,4 +128,5 @@ public class Contract {
     public void setDetailServices(List<DetailService> detailServices) {
         this.detailServices = detailServices;
     }
+
 }
