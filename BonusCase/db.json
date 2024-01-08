@@ -1,0 +1,138 @@
+{
+  "type": [
+    {
+      "id": 1,
+      "name": "Rau"
+    },
+    {
+      "id": 2,
+      "name": "Củ"
+    },
+    {
+      "id": 3,
+      "name": "Quả"
+    }
+  ],
+  "product": [
+    {
+      "id": 1,
+      "code": "NHH-0001",
+      "name": "Cà chua",
+      "unit": "kg",
+      "price": 20000,
+      "date": "2023-10-23",
+      "type": {
+        "id": 3,
+        "name": "Quả"
+      }
+    },
+    {
+      "id": 2,
+      "code": "NHH-0002",
+      "name": "Cà rốt",
+      "unit": "kg",
+      "price": 15000,
+      "date": "2023-09-23",
+      "type": {
+        "id": 2,
+        "name": "Củ"
+      }
+    },
+    {
+      "id": 3,
+      "code": "NHH-0003",
+      "name": "Tỏi",
+      "unit": "kg",
+      "price": 20000,
+      "date": "2023-01-01",
+      "type": {
+        "id": 2,
+        "name": "Củ"
+      }
+    },
+    {
+      "id": 4,
+      "code": "NHH-0004",
+      "name": "Rau muống",
+      "unit": "bó",
+      "price": 10000,
+      "date": "2023-02-24",
+      "type": {
+        "id": 1,
+        "name": "Rau"
+      }
+    },
+    {
+      "id": 5,
+      "code": "NHH-0005",
+      "name": "Rau diếp cá",
+      "unit": "bó",
+      "price": 10000,
+      "date": "2023-11-02",
+      "type": {
+        "id": 1,
+        "name": "Rau"
+      }
+    },
+    {
+      "id": 6,
+      "code": "NHH-0006",
+      "name": "Dưa hấu",
+      "unit": "kg",
+      "price": 30000,
+      "date": "2023-01-13",
+      "type": {
+        "id": 3,
+        "name": "Quả"
+      }
+    },
+    {
+      "id": 7,
+      "code": "NHH-0007",
+      "name": "Xoài",
+      "unit": "kg",
+      "price": 13000,
+      "date": "2023-07-30",
+      "type": {
+        "id": 3,
+        "name": "Quả"
+      }
+    },
+    {
+      "id": 8,
+      "code": "NHH-0008",
+      "name": "Dưa leo",
+      "unit": "kg",
+      "price": 12000,
+      "date": "2023-03-23",
+      "type": {
+        "id": 3,
+        "name": "Quả"
+      }
+    },
+    {
+      "code": "MHH-1111",
+      "name": "Thang Quoc",
+      "unit": "bó",
+      "price": 550000,
+      "date": "2023-11-02",
+      "type": {
+        "id": 1,
+        "name": "Rau"
+      },
+      "id": 9
+    },
+    {
+      "id": 10,
+      "code": "MHH-1112",
+      "name": "Rau nở không mùi",
+      "unit": "bó",
+      "price": 500000,
+      "date": "2023-11-09",
+      "type": {
+        "id": 1,
+        "name": "Rau"
+      }
+    }
+  ]
+}

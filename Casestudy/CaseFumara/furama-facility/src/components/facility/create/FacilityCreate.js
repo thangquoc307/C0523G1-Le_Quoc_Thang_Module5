@@ -6,6 +6,9 @@ import {rentTypeApi, roomTypeApi} from "../../../service/api_connection";
 import axios from "axios";
 import {facilityValidation} from "../../../service/Validation";
 import {toast} from "react-toastify";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+
 export default function FacilityCreate(){
     const [buildingSelect, setBuildingSelect] = useState(1);
     const [validation, setValidation] = useState(() => facilityValidation(1));
@@ -13,7 +16,7 @@ export default function FacilityCreate(){
     const [roomTypeList, setRoomTypeList] = useState([]);
     const navigate = useNavigate();
     const [formTitle,setFormTitle] = useState("Create New Villa");
-
+    const [imageUrl, setImageUrl] = useState();
     const initialValue = {
         name: "",
         area: 0,
@@ -29,6 +32,15 @@ export default function FacilityCreate(){
             id: 0
         }
     };
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdVT5o76hLZM1RkcEtDeJEfCuYlDK-nEg",
+        authDomain: "thangquocproject.firebaseapp.com",
+        projectId: "thangquocproject",
+        storageBucket: "thangquocproject.appspot.com",
+        messagingSenderId: "1056348119656",
+        appId: "1:1056348119656:web:19639bc4aa441af953d1dd"
+    };
+    const storage = getStorage(initializeApp(firebaseConfig));
     const dataRentType = async () => {
         try {
             const data = await rentTypeApi();
@@ -85,59 +97,77 @@ export default function FacilityCreate(){
         }
     }
 
-    const handleSubmit = async (values) => {
-        let newBuilding = {}
-        switch (buildingSelect){
-            case 1:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    level: values.level,
-                    poolArea: values.poolArea,
-                    rentType: {
-                        id: +values.rentType
-                    },
-                    roomType: {
-                        id: +values.roomType
-                    }
-                }
-                break;
-            case 2:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    level: values.level,
-                    rentType: {
-                        id: +values.rentType
-                    }
-                }
-                break;
-            case 3:
-                newBuilding = {
-                    name: values.name,
-                    area: values.area,
-                    price: values.price,
-                    capacity: values.capacity,
-                    img: values.img,
-                    rentType: {
-                        id: +values.rentType
-                    },
-                }
-                break;
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            try {
+                const storageRef = ref(storage, 'images/' + file.name);
+                const snapshot = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                document.getElementById("imgDisplay").style.backgroundImage = `url("${downloadURL}")`
+                setImageUrl(downloadURL);
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+            }
         }
-        try {
-            const reponse = await axios.post('http://localhost:8080/api/create/building/', newBuilding);
-            toast.success("Create New Building Success");
-            navigate("/");
-        } catch (err) {
-            toast.error("Create New Building Fail");
-            console.log(err);
+    };
+    const handleSubmit = async (values) => {
+        if (!imageUrl) {
+            toast.warning("Please choose an Image")
+        } else {
+            let newBuilding = {}
+            switch (buildingSelect) {
+                case 1:
+                    newBuilding = {
+                        name: values.name,
+                        area: values.area,
+                        price: values.price,
+                        capacity: values.capacity,
+                        level: values.level,
+                        poolArea: values.poolArea,
+                        img: imageUrl,
+                        rentType: {
+                            id: +values.rentType.id
+                        },
+                        roomType: {
+                            id: +values.roomType.id
+                        }
+                    }
+                    break;
+                case 2:
+                    newBuilding = {
+                        name: values.name,
+                        area: values.area,
+                        price: values.price,
+                        capacity: values.capacity,
+                        level: values.level,
+                        img: imageUrl,
+                        rentType: {
+                            id: +values.rentType.id
+                        }
+                    }
+                    break;
+                case 3:
+                    newBuilding = {
+                        name: values.name,
+                        area: values.area,
+                        price: values.price,
+                        capacity: values.capacity,
+                        img: imageUrl,
+                        rentType: {
+                            id: +values.rentType.id
+                        },
+                    }
+                    break;
+            }
+            try {
+                const reponse = await axios.post('http://localhost:8080/api/create/building/', newBuilding);
+                toast.success("Create New Building Success");
+                navigate("/");
+            } catch (err) {
+                toast.error("Create New Building Fail");
+                console.log(err);
+            }
         }
     }
     if (roomTypeList.length == 0 || rentTypeList.length == 0) {
@@ -155,6 +185,15 @@ export default function FacilityCreate(){
                             <div id="villaDiv" className="color1" onClick={() => handleForm("villa")}>Villa</div>
                             <div id="houseDiv" className="hover" onClick={() => handleForm("house")}>House</div>
                             <div id="roomDiv" className="hover" onClick={() => handleForm("room")}>Room</div>
+                        </div>
+                        <div className="image">
+                                <div id="imgDisplay" onClick={() => {
+                                    document.getElementById("inputImg").click();
+                                }}>
+                                    <input id="inputImg" hidden={true} type="file"
+                                           onChange={(event) =>
+                                           {handleImageUpload(event)}}/>
+                                </div>
                         </div>
                         <div className="formInputBuilding">
                             <div className="inputCreateBuilding">
@@ -176,11 +215,6 @@ export default function FacilityCreate(){
                                 <label htmlFor="capacity">Building Capacity</label><br/>
                                 <Field type="number" name="capacity" /><br/>
                                 <ErrorMessage name="capacity" component="small" />
-                            </div>
-                            <div className="inputCreateBuilding">
-                                <label htmlFor="img">Image Link</label><br/>
-                                <Field type="text" name="img" /><br/>
-                                <ErrorMessage name="img" component="small" />
                             </div>
                             {(buildingSelect == 1 || buildingSelect == 2) && <div className="inputCreateBuilding">
                                 <label htmlFor="level">Building Level</label><br/>

@@ -1,0 +1,147 @@
+button {
+  width: 90px;
+  margin: 3px 7px;
+  border-radius: 30px;
+  border: none;
+  height: 40px;
+  transition-duration: 0.2s;
+  font-size: 16px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+
+}
+button:hover {
+  scale: 1.1;
+  transition-duration: 0.2s;
+}
+.buttonEdit {
+  background-color: seagreen;
+}
+.buttonDel {
+  background-color: orangered;
+}
+.buttonAdd {
+  background-color: green;
+}
+.display {
+  display: grid;
+  margin: 0 5%;
+  width: 90%;
+  grid-template-rows: 100px 80px 1fr 100px;
+  grid-template-areas: "title" "buttonOption" "table" "page";
+}
+.title {
+  grid-area: title;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonOption {
+  grid-area: buttonOption;
+  display: grid;
+  grid-template-columns: 1fr 300px 300px;
+}
+.searchInput, .searchSelect{
+  height: 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  border: green 1px solid;
+  width: 280px;
+  margin-left: 20px;
+  text-align: center;
+}
+.table {
+  grid-area: table;
+  border-collapse: collapse;
+
+}
+td, th {
+  border: black 1px solid;
+  padding: 5px 10px;
+}
+tr:nth-child(even) {
+  background-color: lightgreen;
+}
+.page {
+  grid-area: page;
+  margin-top: 20px;
+
+}
+.prev, .next {
+  background-color: seagreen;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+
+}
+.pageDisplay {
+  display: inline-flex;
+  margin: 0 10px;
+}
+.modal {
+  width: 20%;
+  aspect-ratio: 4/2;
+  margin: 5% 35%;
+  background-color: rgba(0,0,0,0.7);
+  position: fixed;
+  border-radius: 30px;
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  color: white;
+}
+.targetText {
+  color: red;
+  font-size: 30px;
+  font-weight: bolder;
+}
+.modalButtonCancel {
+  background-color: orangered;
+  width: 120px;
+}
+.modalButtonConfirm {
+  background-color: limegreen;
+  width: 120px;
+}
+.form {
+  width: 40%;
+  margin: 0 30%;
+}
+.form h2 {
+  text-align: center;
+}
+.formTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+.formTable tr {
+  height: 50px;
+}
+.formTable input, .formTable select{
+  width: 200px;
+  height: 30px;
+  border-radius: 20px;
+  border: 1px solid black;
+  padding: 0 20px;
+  font-size: 14px;
+}
+.formTable td:nth-child(1){
+  width: 30%;
+  font-weight: bolder;
+}
+.formTable td:nth-child(2){
+  width: 70%;
+}
+small {
+  color: red;
+  margin-left: 20px;
+  font-weight: bolder;
+}
+.buttonList {
+  margin-top: 20px;
+  display: flex;
+  float: right;
+}

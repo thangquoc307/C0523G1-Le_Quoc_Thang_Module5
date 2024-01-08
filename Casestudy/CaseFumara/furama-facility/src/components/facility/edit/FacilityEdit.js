@@ -4,56 +4,29 @@ import {facilityValidation} from "../../../service/Validation";
 import {buildingByIdApi, rentTypeApi, roomTypeApi} from "../../../service/api_connection";
 import axios from "axios";
 import {ErrorMessage, Field, Form, Formik} from "formik";
-import * as Yup from "yup";
 import {toast} from "react-toastify";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
 
 export default function FacilityEdit() {
     const {id} = useParams();
     const [buildingSelect,setBuildingSelect] = useState(1);
     const [dataEdit, setDataEdit] = useState();
     const [validation, setValidation] = useState();
-    // const validation = Yup.object({
-    //     name: Yup.string()
-    //         .required("Please fill the Name")
-    //         .matches(/^[A-Z]*( [A-Z]*)+$/, "Error Format"),
-    //     area: Yup.number()
-    //         .required("Please fill the Area")
-    //         .min(70, "Building over than 70m2")
-    //         .max(3000, "Building less than 3000m2"),
-    //     price: Yup.number()
-    //         .required("Please fill the Price")
-    //         .min(1000000, "Price over than 1,000,000")
-    //         .max(100000000, "Price less than 100,000,000"),
-    //     capacity: Yup.number()
-    //         .required("Please fill the Capacity")
-    //         .min(2, "Capacity over than 2 persons")
-    //         .max(10, "Capacity less than 10 person"),
-    //     img: Yup.string()
-    //         .required("Please fill the Image Link"),
-    //     level: (buildingSelect == 1 || buildingSelect == 2) ?
-    //         Yup.number()
-    //             .required("Please fill number of Level")
-    //             .min(1, "Level over than 1")
-    //             .max(10, "Level less than 10") :
-    //         Yup.number().notRequired(),
-    //     poolArea: (buildingSelect == 1) ?
-    //         Yup.number()
-    //             .required("Please fill the Pool Area")
-    //             .min(20, "Pool Area over than 20 m2")
-    //             .max(1000, "Pool Area less than 1000 m2") :
-    //         Yup.number().notRequired(),
-    //     rentType: Yup.object().shape({
-    //         id : Yup.number().min(1,"Please choose Rent Type")
-    //     }),
-    //     roomType: (buildingSelect == 1 || buildingSelect == 2) ?
-    //         Yup.object().shape({
-    //             id: Yup.number().min(1,"Please choose Room Type")
-    //         }) : Yup.object().notRequired(),
-    // })
-
     const [rentTypeList, setRentTypeList] = useState([]);
     const [roomTypeList, setRoomTypeList] = useState([]);
     const navigate = useNavigate();
+    const [imageUrl, setImageUrl] = useState();
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdVT5o76hLZM1RkcEtDeJEfCuYlDK-nEg",
+        authDomain: "thangquocproject.firebaseapp.com",
+        projectId: "thangquocproject",
+        storageBucket: "thangquocproject.appspot.com",
+        messagingSenderId: "1056348119656",
+        appId: "1:1056348119656:web:19639bc4aa441af953d1dd"
+    };
+    const storage = getStorage(initializeApp(firebaseConfig));
+
     const getDataEdit = async () => {
         try {
             const data = await buildingByIdApi(id);
@@ -65,7 +38,8 @@ export default function FacilityEdit() {
             } else {
                 await setBuildingSelect(3);
             }
-            setValidation(() => facilityValidation(buildingSelect));
+            await setValidation(() => facilityValidation(buildingSelect));
+            await setImageUrl(data.data.img);
 
         } catch (err) {
             console.log(err);
@@ -92,10 +66,28 @@ export default function FacilityEdit() {
         dataRoomType();
         getDataEdit();
     },[]);
-
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            try {
+                const storageRef = ref(storage, 'images/' + file.name);
+                const snapshot = await uploadBytes(storageRef, file);
+                const downloadURL = await getDownloadURL(snapshot.ref);
+                document.getElementById("imgDisplay").style.backgroundImage = `url("${downloadURL}")`
+                setImageUrl(downloadURL);
+            } catch (error) {
+                console.error("Error uploading image: ", error);
+            }
+        }
+    };
     const handleSubmit = async (values) => {
+        let newBuilding = {
+            ...values,
+            img: imageUrl
+        }
+        console.log(newBuilding)
         try {
-            const reponse = await axios.patch('http://localhost:8080/api/edit/building/', values);
+            const reponse = await axios.patch('http://localhost:8080/api/edit/building/', newBuilding);
             toast.success("Edit the Building Success");
             navigate("/");
         } catch (err) {
@@ -103,14 +95,9 @@ export default function FacilityEdit() {
             console.log(err);
         }
     }
-    console.log(" vali " +validation)
-    if (rentTypeList.length == 0 || roomTypeList.length == 0 || !dataEdit || !validation) {
+    if (rentTypeList.length == 0 || roomTypeList.length == 0 || !dataEdit || !validation || !imageUrl) {
         return null;
     } else {
-        console.log(validation)
-        console.log(rentTypeList)
-        console.log(roomTypeList)
-        console.log(dataEdit)
         return (
             <div>
                 <h1 className="titleCreateForm">Edit Building</h1>
@@ -119,6 +106,16 @@ export default function FacilityEdit() {
                     onSubmit={handleSubmit}
                     validationSchema={validation}>
                     <Form className="formBuildEdit color1 filler">
+                        <div className="image">
+                            <div id="imgDisplay" style={{backgroundImage: `url(${imageUrl})`}}
+                                 onClick={() => {
+                                document.getElementById("inputImg").click();
+                            }}>
+                                <input id="inputImg" hidden={true} type="file"
+                                       onChange={(event) =>
+                                       {handleImageUpload(event)}}/>
+                            </div>
+                        </div>
                         <div className="formInputBuilding">
                             <div className="inputCreateBuilding">
                                 <label htmlFor="name">Building Name</label><br/>
@@ -139,11 +136,6 @@ export default function FacilityEdit() {
                                 <label htmlFor="capacity">Building Capacity</label><br/>
                                 <Field type="number" name="capacity" /><br/>
                                 <ErrorMessage name="capacity" component="small" />
-                            </div>
-                            <div className="inputCreateBuilding">
-                                <label htmlFor="img">Image Link</label><br/>
-                                <Field type="text" name="img" /><br/>
-                                <ErrorMessage name="img" component="small" />
                             </div>
                             {(buildingSelect == 1 || buildingSelect == 2) && <div className="inputCreateBuilding">
                                 <label htmlFor="level">Building Level</label><br/>

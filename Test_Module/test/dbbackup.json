@@ -1,0 +1,86 @@
+{
+  "types": [
+    {
+      "id": 1,
+      "name": "Thực phẩm chức năng",
+      "description": "Thực phẩm không phải là thuốc không thay thế thuốc chữa bệnh"
+    },
+    {
+      "id": 2,
+      "name": "Thiết bị y tế",
+      "description": "Hàng nhập lậu"
+    },
+    {
+      "id": 3,
+      "name": "Dược phẩm",
+      "description": "Thuốc giả"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "PROD-0001",
+      "description": "Blackmores Omega Double High Strength Fish Oil",
+      "type": {
+        "id": 1,
+        "name": "Thực phẩm chức năng",
+        "description": "Thực phẩm không phải là thuốc không thay thế thuốc chữa bệnh"
+      },
+      "price": 598000,
+      "quatity": 1000,
+      "date": "2022-01-24"
+    },
+    {
+      "id": 2,
+      "name": "PROD-0002",
+      "description": "Blackmores CoQ10 150mg",
+      "type": {
+        "id": 1,
+        "name": "Thực phẩm chức năng",
+        "description": "Thực phẩm không phải là thuốc không thay thế thuốc chữa bệnh"
+      },
+      "price": 513000,
+      "quatity": 100,
+      "date": "2022-10-15"
+    },
+    {
+      "id": 3,
+      "name": "PROD-0003",
+      "description": "Máy đo huyết áp bắp tay",
+      "type": {
+        "id": 2,
+        "name": "Thiết bị y tế",
+        "description": "Hàng nhập lậu"
+      },
+      "price": 1350000,
+      "quatity": 500,
+      "date": "2023-02-03"
+    },
+    {
+      "id": 4,
+      "name": "PROD-0004",
+      "description": "Efferalgan",
+      "type": {
+        "id": 3,
+        "name": "Dược phẩm",
+        "description": "Thuốc giả"
+      },
+      "price": 30000,
+      "quatity": 65,
+      "date": "2021-11-11"
+    },
+    {
+      "id": 5,
+      "name": "PROD-0005",
+      "description": "Nhiệt kế hồng ngoại Kachi JXB-315",
+      "type": {
+        "id": 2,
+        "name": "Thiết bị y tế",
+        "description": "Hàng nhập lậu"
+      },
+      "price": 768000,
+      "quatity": 1000,
+      "date": "2022-10-15"
+    }
+  ]
+}

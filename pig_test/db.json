@@ -1,0 +1,122 @@
+{
+  "manufacturer": [
+    {
+      "id": 1,
+      "nation": "VIETNAM"
+    },
+    {
+      "id": 2,
+      "nation": "THAILAND"
+    },
+    {
+      "id": 3,
+      "nation": "KOREA"
+    },
+    {
+      "id": 4,
+      "nation": "RUSSIA"
+    },
+    {
+      "id": 5,
+      "nation": "CHINA"
+    }
+  ],
+  "product": [
+    {
+      "id": 1,
+      "code": "MH-001",
+      "enterDate": "2020-02-23",
+      "enterWeight": 15,
+      "leaseDate": "2020-06-22",
+      "leaseWeight": 95,
+      "manufacturer": {
+        "id": 1,
+        "nation": "VIETNAM"
+      }
+    },
+    {
+      "id": 2,
+      "code": "MH-002",
+      "enterDate": "2020-02-22",
+      "enterWeight": 20,
+      "leaseDate": "2020-06-22",
+      "leaseWeight": 90,
+      "manufacturer": {
+        "id": 4,
+        "nation": "RUSSIA"
+      }
+    },
+    {
+      "id": 3,
+      "code": "MH-003",
+      "enterDate": "2020-02-02",
+      "enterWeight": 30,
+      "leaseDate": "2020-05-22",
+      "leaseWeight": 110,
+      "manufacturer": {
+        "id": 2,
+        "nation": "THAILAND"
+      }
+    },
+    {
+      "id": 4,
+      "code": "MH-004",
+      "enterDate": "2020-06-12",
+      "enterWeight": 15,
+      "leaseDate": "2020-12-12",
+      "leaseWeight": 110,
+      "manufacturer": {
+        "id": 1,
+        "nation": "VIETNAM"
+      }
+    },
+    {
+      "id": 5,
+      "code": "MH-005",
+      "enterDate": "2020-02-10",
+      "enterWeight": 14,
+      "leaseDate": "2020-04-30",
+      "leaseWeight": 120,
+      "manufacturer": {
+        "id": 3,
+        "nation": "KOREA"
+      }
+    },
+    {
+      "id": 6,
+      "code": "MH-006",
+      "enterDate": "2020-01-16",
+      "enterWeight": 19,
+      "leaseDate": "2020-05-22",
+      "leaseWeight": 99,
+      "manufacturer": {
+        "id": 4,
+        "nation": "RUSSIA"
+      }
+    },
+    {
+      "id": 7,
+      "code": "MH-007",
+      "enterDate": "2020-02-12",
+      "enterWeight": 12,
+      "leaseDate": "2020-04-23",
+      "leaseWeight": 98,
+      "manufacturer": {
+        "id": 4,
+        "nation": "RUSSIA"
+      }
+    },
+    {
+      "id": 8,
+      "code": "MH-008",
+      "enterDate": "2020-02-12",
+      "enterWeight": 10,
+      "leaseDate": "2020-04-30",
+      "leaseWeight": 110,
+      "manufacturer": {
+        "id": 4,
+        "nation": "RUSSIA"
+      }
+    }
+  ]
+}

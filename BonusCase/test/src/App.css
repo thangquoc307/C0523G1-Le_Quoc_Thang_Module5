@@ -1,0 +1,150 @@
+button {
+  width: 100px;
+  margin: 3px 7px;
+  border-radius: 30px;
+  border: none;
+  height: 40px;
+  transition-duration: 0.2s;
+  font-size: 16px;
+  font-weight: bolder;
+  color: white;
+  cursor: pointer;
+
+}
+button:hover {
+  scale: 1.1;
+  transition-duration: 0.2s;
+}
+.buttonEdit {
+  background-color: seagreen;
+}
+.buttonDel {
+  background-color: orangered;
+}
+.buttonAdd {
+  background-color: green;
+}
+.buttonAddConfirm {
+  background-color: blue;
+}
+.buttonCancel {
+  background-color: red;
+}
+.display {
+  display: grid;
+  margin: 0 5%;
+  width: 90%;
+  grid-template-rows: 100px 80px 1fr 100px;
+  grid-template-areas: "title" "buttonOption" "table" "page";
+}
+.title {
+  grid-area: title;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttonOption {
+  grid-area: buttonOption;
+  display: grid;
+  grid-template-columns: 1fr 300px 300px;
+}
+.searchInput, .searchSelect{
+  height: 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  border: gray 1px solid;
+  width: 280px;
+  margin-left: 20px;
+  text-align: center;
+}
+
+.page {
+  grid-area: page;
+  margin-top: 20px;
+
+}
+.prev, .next {
+  background-color: seagreen;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+
+}
+.pageDisplay {
+  display: inline-flex;
+  margin: 0 10px;
+}
+.modal {
+  width: 20%;
+  aspect-ratio: 4/2;
+  margin: 5% 35%;
+  background-color: rgba(0,0,0,0.9);
+  position: fixed;
+  border-radius: 30px;
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  color: white;
+}
+.targetText {
+  color: red;
+  font-size: 30px;
+  font-weight: bolder;
+}
+.modalButtonCancel {
+  background-color: orangered;
+  width: 120px;
+}
+.modalButtonConfirm {
+  background-color: limegreen;
+  width: 120px;
+}
+input, select {
+  width: 95%;
+}
+
+.tableGrid{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr 1fr 1fr;
+}
+.headerLine {
+  text-align: center;
+  font-weight: bolder;
+  height: 50px;
+  background-color: rgba(0,0,0,0.3);
+}
+.headerLine div {
+  border: white 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formAdd {
+  text-align: center;
+  padding-top: 10px;
+  height: 70px;
+  background-color: rgba(0,0,0,0.15);
+}
+.lineEven {
+  background-color: rgba(0,0,0,0.3);
+}
+.table {
+  grid-area: table;
+}
+small {
+  color: red;
+}
+.gridEven {
+  background-color: rgba(0,0,0,0.1);
+}
+.gridOdd {
+  background-color: rgba(0,0,0,0.2);
+}
+.gridOdd, .gridEven {
+  height: 50px;
+  text-align: center;
+  align-items: center;
+}

@@ -133,8 +133,6 @@ export const facilityValidation = (buildingSelect) => {
             .required("Please fill the Capacity")
             .min(2, "Capacity over than 2 persons")
             .max(10, "Capacity less than 10 person"),
-        img: Yup.string()
-            .required("Please fill the Image Link"),
         level: (buildingSelect == 1 || buildingSelect == 2) ?
             Yup.number()
                 .required("Please fill number of Level")
